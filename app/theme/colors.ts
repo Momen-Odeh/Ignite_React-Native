@@ -37,12 +37,22 @@ const palette = {
   overlay50: "rgba(25, 16, 21, 0.5)",
 } as const
 
+const primary = {
+  text: "#343434",
+  border: "#E2E2E2",
+  blue: "#4F6D7A",
+  white: "#FFFFFF",
+  textLight: "#797979",
+  offWhite: "#F0F0F0",
+}
+
 export const colors = {
   /**
    * The palette is available to use, but prefer using the name.
    * This is only included for rare, one-off cases. Try to use
    * semantic names as much as possible.
    */
+  primary,
   palette,
   /**
    * A helper for making something see-thru.
