@@ -35,7 +35,10 @@ export const AuthenticationModel = types
       store.setProp("password", value)
     },
     async doUserLogin() {
-      if (store.authEmail !== "momen.odeh74@gmail.com" || store.password !== "123456789") {
+      if (
+        store.authEmail.toLocaleLowerCase() !== "momen.odeh74@gmail.com" ||
+        store.password !== "123456789"
+      ) {
         throw Error("Invalid username or password")
       }
       store.setProp("password", "")
