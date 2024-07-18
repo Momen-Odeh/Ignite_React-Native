@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
+import { TextStyle, ViewStyle } from "react-native"
 import { TabsScreenProps } from "app/navigators"
 import { Button, HomeLogo, Screen, Text } from "app/components"
 // import { useNavigation } from "@react-navigation/native"
@@ -27,9 +27,10 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
       safeAreaEdges={["bottom", "top"]}
       // preset="scroll"
       backgroundColor={colors.primary.blue}
+      statusBarStyle="light"
     >
       <HomeLogo />
-      <Text text="home" />
+      <Text text="Currency Converter" style={$homeLogo} preset="heading" />
       {/* <Text>{authEmail}</Text> */}
       <Button
         onPress={() => {
@@ -49,4 +50,11 @@ const $root: ViewStyle = {
   flex: 1,
   justifyContent: "center",
   alignItems: "center",
+}
+const $homeLogo: TextStyle = {
+  textAlign: "center",
+  color: colors.primary.white,
+  fontWeight: "bold",
+  fontSize: 30,
+  marginVertical: 20,
 }
