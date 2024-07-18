@@ -4,11 +4,7 @@
  * Generally speaking, it will contain an auth flow (registration, login, forgot password)
  * and a "main" flow which the user will use once logged in.
  */
-import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-} from "@react-navigation/native"
+import { DarkTheme, DefaultTheme, NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
 import { observer } from "mobx-react-lite"
 import React from "react"
@@ -17,6 +13,8 @@ import * as Screens from "app/screens"
 import Config from "../config"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
+import { HomeTapNavigator } from "./HomeTapNavigator"
+import { useStores } from "app/models"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -34,6 +32,9 @@ import { colors } from "app/theme"
 export type AppStackParamList = {
   Welcome: undefined
   // 🔥 Your screens go here
+  LogIn: undefined
+  Home: undefined
+  // HameNavigator: undefined
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -50,15 +51,26 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>()
-
 const AppStack = observer(function AppStack() {
+  const {
+    authenticationStore: { isAuthenticated },
+  } = useStores()
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
+      initialRouteName={isAuthenticated ? "Home" : "LogIn"}
     >
-          <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
       {/** 🔥 Your screens go here */}
-      {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
+      {/* <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} /> */}
+      {isAuthenticated ? (
+        <>
+          <Stack.Screen name="Home" component={HomeTapNavigator} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="LogIn" component={Screens.LogInScreen} />
+        </>
+      )}
     </Stack.Navigator>
   )
 })
