@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, ViewStyle } from "react-native"
+import { Image, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
 import { TabsScreenProps } from "app/navigators"
 import {
   // Button,
@@ -45,6 +45,14 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
         style={$currencyWeight}
         preset="bold"
       />
+
+      <TouchableOpacity
+        style={$reverseCurrencyContainer}
+        onPress={() => console.log("reverseCurrency")}
+      >
+        <Image source={require("../../assets/images/currency-reverse.png")} />
+        <Text text="Reverse Currency" style={$reverseCurrencyText} preset="bold" />
+      </TouchableOpacity>
       {/* <Button
         onPress={() => {
           logout().then((response) => {
@@ -76,4 +84,15 @@ const $currencyWeight: TextStyle = {
   fontSize: 14,
   color: colors.primary.white,
   textAlign: "center",
+  marginBottom: 15,
+}
+const $reverseCurrencyContainer: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: 15,
+}
+const $reverseCurrencyText: TextStyle = {
+  fontSize: 14,
+  color: colors.primary.white,
 }
