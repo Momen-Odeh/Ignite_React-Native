@@ -40,6 +40,11 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
       {/* <Text>{authEmail}</Text> */}
       <CurrencyInput />
       <CurrencyInput disabled={true} />
+      <Text
+        text={`1 ${"USD"} = ${3.63} ${"ILS"} as of 18-7-2024`}
+        style={$currencyWeight}
+        preset="bold"
+      />
       {/* <Button
         onPress={() => {
           logout().then((response) => {
@@ -66,4 +71,9 @@ const $homeLogo: TextStyle = {
   fontWeight: "bold",
   fontSize: 30,
   marginVertical: 20,
+}
+const $currencyWeight: TextStyle = {
+  fontSize: 14,
+  color: colors.primary.white,
+  textAlign: "center",
 }
