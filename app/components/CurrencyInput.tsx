@@ -7,6 +7,8 @@ import { Button } from "./Button"
 
 export interface CurrencyInputProps {
   disabled?: boolean
+  value: string
+  onValueChange?: (param: string) => void
 }
 
 /**
@@ -14,6 +16,8 @@ export interface CurrencyInputProps {
  */
 export const CurrencyInput = observer(function CurrencyInput({
   disabled = false,
+  value,
+  onValueChange,
 }: CurrencyInputProps) {
   return (
     <View style={$container}>
@@ -29,6 +33,8 @@ export const CurrencyInput = observer(function CurrencyInput({
         style={$InputText}
         inputWrapperStyle={$InputBox}
         status={disabled ? "disabled" : undefined}
+        value={value}
+        onChangeText={onValueChange}
         // label="Email"
         // value={authEmail}
         // onChange={(v) => {

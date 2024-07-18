@@ -12,6 +12,7 @@ import {
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 import { colors } from "app/theme"
+import { useStores } from "app/models"
 
 interface HomeScreenProps extends TabsScreenProps<"HomeTap"> {}
 
@@ -26,7 +27,9 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
   // } = useStores()
   // Pull in navigation via hook
   // const navigation = useNavigation()
-
+  const {
+    CurrencyStore: { baseCurrency, quoteCurrency, setBaseCurrency },
+  } = useStores()
   return (
     <Screen
       style={$root}
@@ -38,8 +41,8 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
       <HomeLogo />
       <Text text="Currency Converter" style={$homeLogo} preset="heading" />
       {/* <Text>{authEmail}</Text> */}
-      <CurrencyInput />
-      <CurrencyInput disabled={true} />
+      <CurrencyInput value={baseCurrency} onValueChange={setBaseCurrency} />
+      <CurrencyInput disabled={true} value={quoteCurrency} />
       <Text
         text={`1 ${"USD"} = ${3.63} ${"ILS"} as of 18-7-2024`}
         style={$currencyWeight}
