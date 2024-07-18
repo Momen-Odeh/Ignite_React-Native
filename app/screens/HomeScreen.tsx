@@ -2,22 +2,28 @@ import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { TextStyle, ViewStyle } from "react-native"
 import { TabsScreenProps } from "app/navigators"
-import { Button, HomeLogo, Screen, Text } from "app/components"
+import {
+  // Button,
+  CurrencyInput,
+  HomeLogo,
+  Screen,
+  Text,
+} from "app/components"
 // import { useNavigation } from "@react-navigation/native"
-import { useStores } from "app/models"
+// import { useStores } from "app/models"
 import { colors } from "app/theme"
 
 interface HomeScreenProps extends TabsScreenProps<"HomeTap"> {}
 
 export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
   // Pull in one of our MST stores
-  const {
-    authenticationStore: {
-      // authEmail,
-      logout,
-    },
-    reset,
-  } = useStores()
+  // const {
+  //   authenticationStore: {
+  //     // authEmail,
+  //     logout,
+  //   },
+  //   reset,
+  // } = useStores()
   // Pull in navigation via hook
   // const navigation = useNavigation()
 
@@ -32,7 +38,9 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
       <HomeLogo />
       <Text text="Currency Converter" style={$homeLogo} preset="heading" />
       {/* <Text>{authEmail}</Text> */}
-      <Button
+      <CurrencyInput />
+      <CurrencyInput disabled={true} />
+      {/* <Button
         onPress={() => {
           logout().then((response) => {
             if (response) reset()
@@ -41,7 +49,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
         }}
       >
         Log Out
-      </Button>
+      </Button> */}
     </Screen>
   )
 })
@@ -49,7 +57,8 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
 const $root: ViewStyle = {
   flex: 1,
   justifyContent: "center",
-  alignItems: "center",
+  padding: 30,
+  // alignItems: "center",
 }
 const $homeLogo: TextStyle = {
   textAlign: "center",
