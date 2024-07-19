@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { Image, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
 import { TabsScreenProps } from "app/navigators"
@@ -13,6 +13,7 @@ import {
 // import { useStores } from "app/models"
 import { colors } from "app/theme"
 import { useStores } from "app/models"
+import { api } from "app/services/api"
 
 interface HomeScreenProps extends TabsScreenProps<"HomeTap"> {}
 
@@ -27,6 +28,12 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
   // } = useStores()
   // Pull in navigation via hook
   // const navigation = useNavigation()
+  useEffect(() => {
+    console.log("in use Effect Hock!")
+    api.getExchangeRates().then((response) => {
+      console.log(response)
+    })
+  }, [])
   const {
     CurrencyStore: { baseCurrency, quoteCurrency, setBaseCurrency },
   } = useStores()
