@@ -13,7 +13,7 @@ import {
 // import { useStores } from "app/models"
 import { colors } from "app/theme"
 import { useStores } from "app/models"
-import { api } from "app/services/api"
+// import { api } from "app/services/api"
 
 interface HomeScreenProps extends TabsScreenProps<"HomeTap"> {}
 
@@ -30,9 +30,9 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
   // const navigation = useNavigation()
   useEffect(() => {
     console.log("in use Effect Hock!")
-    api.getExchangeRates().then((response) => {
-      console.log(response)
-    })
+    // api.getExchangeRates().then((response) => {
+    //   console.log(response)
+    // })
   }, [])
   const {
     CurrencyStore: { baseCurrency, quoteCurrency, setBaseCurrency },
@@ -41,7 +41,6 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
     <Screen
       style={$root}
       safeAreaEdges={["bottom", "top"]}
-      // preset="scroll"
       backgroundColor={colors.primary.blue}
       statusBarStyle="light"
     >

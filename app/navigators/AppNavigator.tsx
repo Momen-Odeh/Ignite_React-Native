@@ -35,6 +35,7 @@ export type AppStackParamList = {
   LogIn: undefined
   Home: undefined
   // HameNavigator: undefined
+  CurrencyList: undefined
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
 
@@ -58,13 +59,14 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? "Home" : "LogIn"}
+      initialRouteName={isAuthenticated ? "CurrencyList" : "LogIn"}
     >
       {/** 🔥 Your screens go here */}
       {/* <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} /> */}
       {isAuthenticated ? (
         <>
           <Stack.Screen name="Home" component={HomeTapNavigator} />
+          <Stack.Screen name="CurrencyList" component={Screens.CurrencyListScreen} />
         </>
       ) : (
         <>
