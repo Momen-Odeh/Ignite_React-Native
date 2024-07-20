@@ -1,7 +1,6 @@
 import React from "react"
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack"
-import { CurrencyListScreen } from "app/screens"
-import { AppStack } from "./AppNavigator"
+import { CurrencyListScreen, HomeScreen } from "app/screens"
 
 export type ModalStackNavigatorParamList = {
   MainStack: undefined
@@ -17,13 +16,13 @@ export const ModalStackNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         // cardStyle: { backgroundColor: "transparent" },
-        // headerShown: false,
+        headerShown: false,
         presentation: "modal",
       }}
     >
       <Stack.Screen
         name="MainStack"
-        component={AppStack}
+        component={HomeScreen}
         options={
           {
             // headerShown: false,
