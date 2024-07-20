@@ -40,9 +40,9 @@ export class Api {
   }
 
   // Add a method to fetch exchange rates
-  async getExchangeRates(): Promise<any> {
+  async getExchangeRates(baseCurrency: string): Promise<any> {
     // Make the API call
-    const response = await this.apisauce.get("https://open.er-api.com/v6/latest/USD")
+    const response = await this.apisauce.get("https://open.er-api.com/v6/latest/" + baseCurrency)
 
     // Check if the response is successful
     if (!response.ok) {

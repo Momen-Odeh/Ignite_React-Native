@@ -2,6 +2,7 @@ import React, { FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { Image, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
 import { ModalStackScreenProps } from "app/navigators"
+import currencies from "../utils/data/currencies.json"
 import {
   // Button,
   CurrencyInput,
@@ -13,7 +14,7 @@ import {
 // import { useStores } from "app/models"
 import { colors } from "app/theme"
 import { useStores } from "app/models"
-// import { api } from "app/services/api"
+import { api } from "app/services/api"
 
 interface HomeScreenProps extends ModalStackScreenProps<"MainStack"> {}
 
@@ -28,23 +29,35 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
   // } = useStores()
   // Pull in navigation via hook
   // const navigation = useNavigation()
-  useEffect(() => {
-    console.log("in use Effect Hock!")
-    // api.getExchangeRates().then((response) => {
-    //   console.log(response)
-    // })
-  }, [])
   const {
     CurrencyStore: {
       baseCurrency,
       quoteCurrency,
       setBaseCurrency,
+      setQuoteCurrency,
       setBaseCurrencyTitle,
       setQuoteCurrencyTitle,
       baseCurrencyTitle,
       quoteCurrencyTitle,
     },
   } = useStores()
+  useEffect(() => {
+    console.log("******", baseCurrencyTitle)
+
+    if (currencies.includes(baseCurrencyTitle)) {
+      console.log("1111111111111")
+
+      api.getExchangeRates(baseCurrency).then((response) => {
+        console.log("222222222222")
+
+        // eslint-disable-next-line dot-notation
+        console.log(response.rates[baseCurrency])
+        const res: number = parseFloat(response.rates[baseCurrency]) * parseFloat(baseCurrency)
+
+        setQuoteCurrency(res.toFixed(3))
+      })
+    }
+  }, [baseCurrency])
   return (
     <Screen
       style={$root}
