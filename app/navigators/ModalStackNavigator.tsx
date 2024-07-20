@@ -4,7 +4,7 @@ import { CurrencyListScreen, HomeScreen } from "app/screens"
 
 export type ModalStackNavigatorParamList = {
   MainStack: undefined
-  CurrencyList: undefined
+  CurrencyList: { isBaseCurrency: boolean }
 }
 
 export type ModalStackScreenProps<T extends keyof ModalStackNavigatorParamList> =

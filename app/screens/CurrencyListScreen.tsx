@@ -5,15 +5,26 @@ import { ModalStackScreenProps } from "app/navigators"
 import { ListView, RowItem, RowSeparator, Screen } from "app/components"
 import data from "../utils/data/currencies.json"
 // import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "app/models"
+import { useStores } from "app/models"
 
 interface CurrencyListScreenProps extends ModalStackScreenProps<"CurrencyList"> {}
 const screens = Dimensions.get("window")
 export const CurrencyListScreen: FC<CurrencyListScreenProps> = observer(
-  function CurrencyListScreen() {
+  function CurrencyListScreen({
+    route: {
+      params: { isBaseCurrency },
+    },
+    navigation,
+  }) {
     // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
-
+    const {
+      CurrencyStore: {
+        baseCurrencyTitle,
+        quoteCurrencyTitle,
+        setBaseCurrencyTitle,
+        setQuoteCurrencyTitle,
+      },
+    } = useStores()
     // Pull in navigation via hook
     // const navigation = useNavigation()
     return (
@@ -21,7 +32,20 @@ export const CurrencyListScreen: FC<CurrencyListScreenProps> = observer(
         <View style={$container}>
           <ListView
             data={data}
-            renderItem={({ item }) => <RowItem text={item} checked={true} />}
+            renderItem={({ item }) => (
+              <RowItem
+                text={item}
+                checked={
+                  (isBaseCurrency && item === baseCurrencyTitle) ||
+                  (!isBaseCurrency && item === quoteCurrencyTitle)
+                }
+                onPress={(val) => {
+                  if (isBaseCurrency) setBaseCurrencyTitle(val)
+                  else setQuoteCurrencyTitle(val)
+                  navigation.pop()
+                }}
+              />
+            )}
             ItemSeparatorComponent={() => <RowSeparator />}
             estimatedItemSize={56}
           />

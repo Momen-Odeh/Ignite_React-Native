@@ -61,10 +61,17 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
         onValueChange={setBaseCurrency}
         onButtonPress={() => {
           console.log("on Button press ==> base ")
-          navigation.push("CurrencyList")
+          navigation.push("CurrencyList", { isBaseCurrency: true })
         }}
       />
-      <CurrencyInput currencyTitle={quoteCurrencyTitle} disabled={true} value={quoteCurrency} />
+      <CurrencyInput
+        currencyTitle={quoteCurrencyTitle}
+        disabled={true}
+        value={quoteCurrency}
+        onButtonPress={() => {
+          navigation.push("CurrencyList", { isBaseCurrency: false })
+        }}
+      />
       <Text
         text={`1 ${"USD"} = ${3.63} ${"ILS"} as of 18-7-2024`}
         style={$currencyWeight}

@@ -8,7 +8,7 @@ import { colors } from "app/theme"
 export interface RowItemProps {
   text: string
   checked?: boolean
-  onPress?: () => void
+  onPress?: (param: string) => void
 }
 
 /**
@@ -16,7 +16,7 @@ export interface RowItemProps {
  */
 export const RowItem = observer(function RowItem({ text, checked, onPress }: RowItemProps) {
   return (
-    <TouchableOpacity style={$container} onPress={onPress}>
+    <TouchableOpacity style={$container} onPress={() => onPress?.(text)}>
       <Text text={text} preset="default" style={$text} />
       {checked && <Icon icon="check" color={colors.primary.blue} />}
     </TouchableOpacity>
