@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import { Image, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
-import { TabsScreenProps } from "app/navigators"
+import { ModalStackScreenProps } from "app/navigators"
 import {
   // Button,
   CurrencyInput,
@@ -15,9 +15,9 @@ import { colors } from "app/theme"
 import { useStores } from "app/models"
 // import { api } from "app/services/api"
 
-interface HomeScreenProps extends TabsScreenProps<"HomeTap"> {}
+interface HomeScreenProps extends ModalStackScreenProps<"MainStack"> {}
 
-export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
+export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ navigation }) {
   // Pull in one of our MST stores
   // const {
   //   authenticationStore: {
@@ -47,7 +47,14 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen() {
       <HomeLogo />
       <Text text="Currency Converter" style={$homeLogo} preset="heading" />
       {/* <Text>{authEmail}</Text> */}
-      <CurrencyInput value={baseCurrency} onValueChange={setBaseCurrency} />
+      <CurrencyInput
+        value={baseCurrency}
+        onValueChange={setBaseCurrency}
+        onButtonPress={() => {
+          console.log("on Button press ==> base ")
+          navigation.push("CurrencyList")
+        }}
+      />
       <CurrencyInput disabled={true} value={quoteCurrency} />
       <Text
         text={`1 ${"USD"} = ${3.63} ${"ILS"} as of 18-7-2024`}

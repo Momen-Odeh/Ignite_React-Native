@@ -9,6 +9,7 @@ export interface CurrencyInputProps {
   disabled?: boolean
   value: string
   onValueChange?: (param: string) => void
+  onButtonPress?: () => void
 }
 
 /**
@@ -18,16 +19,11 @@ export const CurrencyInput = observer(function CurrencyInput({
   disabled = false,
   value,
   onValueChange,
+  onButtonPress,
 }: CurrencyInputProps) {
   return (
     <View style={$container}>
-      <Button
-        style={$button}
-        textStyle={$buttonText}
-        text="USD"
-
-        // onPress={onButtonPress}
-      ></Button>
+      <Button style={$button} textStyle={$buttonText} text="USD" onPress={onButtonPress}></Button>
       <TextField
         containerStyle={$Input}
         style={$InputText}

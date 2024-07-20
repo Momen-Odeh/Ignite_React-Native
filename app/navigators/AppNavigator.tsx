@@ -15,6 +15,7 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 import { HomeTapNavigator } from "./HomeTapNavigator"
 import { useStores } from "app/models"
+import { ModalStackNavigator } from "./ModalStackNavigator"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -52,21 +53,21 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>()
-const AppStack = observer(function AppStack() {
+export const AppStack = observer(function AppStack() {
   const {
     authenticationStore: { isAuthenticated },
   } = useStores()
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? "CurrencyList" : "LogIn"}
+      initialRouteName={isAuthenticated ? "Home" : "LogIn"}
     >
       {/** 🔥 Your screens go here */}
       {/* <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} /> */}
       {isAuthenticated ? (
         <>
-          <Stack.Screen name="CurrencyList" component={Screens.CurrencyListScreen} />
           <Stack.Screen name="Home" component={HomeTapNavigator} />
+          {/* <Stack.Screen name="CurrencyList" component={Screens.CurrencyListScreen} /> */}
         </>
       ) : (
         <>
@@ -91,7 +92,8 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
     >
-      <AppStack />
+      {/* <AppStack /> */}
+      <ModalStackNavigator />
     </NavigationContainer>
   )
 })

@@ -1,13 +1,13 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { Dimensions, View, ViewStyle } from "react-native"
-import { AppStackScreenProps } from "app/navigators"
+import { ModalStackScreenProps } from "app/navigators"
 import { ListView, RowItem, RowSeparator, Screen } from "app/components"
 import data from "../utils/data/currencies.json"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
-interface CurrencyListScreenProps extends AppStackScreenProps<"CurrencyList"> {}
+interface CurrencyListScreenProps extends ModalStackScreenProps<"CurrencyList"> {}
 const screens = Dimensions.get("window")
 export const CurrencyListScreen: FC<CurrencyListScreenProps> = observer(
   function CurrencyListScreen() {
