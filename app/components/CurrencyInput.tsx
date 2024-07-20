@@ -10,12 +10,14 @@ export interface CurrencyInputProps {
   value: string
   onValueChange?: (param: string) => void
   onButtonPress?: () => void
+  currencyTitle: string
 }
 
 /**
  * Describe your component here
  */
 export const CurrencyInput = observer(function CurrencyInput({
+  currencyTitle,
   disabled = false,
   value,
   onValueChange,
@@ -23,7 +25,12 @@ export const CurrencyInput = observer(function CurrencyInput({
 }: CurrencyInputProps) {
   return (
     <View style={$container}>
-      <Button style={$button} textStyle={$buttonText} text="USD" onPress={onButtonPress}></Button>
+      <Button
+        style={$button}
+        textStyle={$buttonText}
+        text={currencyTitle}
+        onPress={onButtonPress}
+      ></Button>
       <TextField
         containerStyle={$Input}
         style={$InputText}

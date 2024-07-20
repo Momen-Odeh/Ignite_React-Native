@@ -9,6 +9,8 @@ export const CurrencyStoreModel = types
   .props({
     baseCurrency: "1",
     quoteCurrency: "3.63",
+    baseCurrencyTitle: "USD",
+    quoteCurrencyTitle: "ILS",
   })
   .actions(withSetPropAction)
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -18,6 +20,12 @@ export const CurrencyStoreModel = types
     },
     setQuoteCurrency(value: string) {
       self.setProp("quoteCurrency", value)
+    },
+    setBaseCurrencyTitle(value: string) {
+      self.setProp("baseCurrencyTitle", value)
+    },
+    setQuoteCurrencyTitle(value: string) {
+      self.setProp("quoteCurrencyTitle", value)
     },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
 

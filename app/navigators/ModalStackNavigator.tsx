@@ -16,18 +16,16 @@ export const ModalStackNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         // cardStyle: { backgroundColor: "transparent" },
-        headerShown: false,
+        // headerShown: false,
         presentation: "modal",
       }}
     >
       <Stack.Screen
         name="MainStack"
         component={HomeScreen}
-        options={
-          {
-            // headerShown: false,
-          }
-        }
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen name="CurrencyList" component={CurrencyListScreen} />
     </Stack.Navigator>

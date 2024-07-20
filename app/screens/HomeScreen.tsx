@@ -35,7 +35,15 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
     // })
   }, [])
   const {
-    CurrencyStore: { baseCurrency, quoteCurrency, setBaseCurrency },
+    CurrencyStore: {
+      baseCurrency,
+      quoteCurrency,
+      setBaseCurrency,
+      setBaseCurrencyTitle,
+      setQuoteCurrencyTitle,
+      baseCurrencyTitle,
+      quoteCurrencyTitle,
+    },
   } = useStores()
   return (
     <Screen
@@ -48,6 +56,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
       <Text text="Currency Converter" style={$homeLogo} preset="heading" />
       {/* <Text>{authEmail}</Text> */}
       <CurrencyInput
+        currencyTitle={baseCurrencyTitle}
         value={baseCurrency}
         onValueChange={setBaseCurrency}
         onButtonPress={() => {
@@ -55,7 +64,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
           navigation.push("CurrencyList")
         }}
       />
-      <CurrencyInput disabled={true} value={quoteCurrency} />
+      <CurrencyInput currencyTitle={quoteCurrencyTitle} disabled={true} value={quoteCurrency} />
       <Text
         text={`1 ${"USD"} = ${3.63} ${"ILS"} as of 18-7-2024`}
         style={$currencyWeight}
@@ -64,7 +73,10 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
 
       <TouchableOpacity
         style={$reverseCurrencyContainer}
-        onPress={() => console.log("reverseCurrency")}
+        onPress={() => {
+          setBaseCurrencyTitle(quoteCurrencyTitle)
+          setQuoteCurrencyTitle(baseCurrencyTitle)
+        }}
       >
         <Image source={require("../../assets/images/currency-reverse.png")} />
         <Text text="Reverse Currency" style={$reverseCurrencyText} preset="bold" />
