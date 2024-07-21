@@ -17,9 +17,8 @@
       "fallbackToCacheTimeout": 0
     },
     "jsEngine": "hermes",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+
     "android": {
       "icon": "./assets/images/app-icon-android-legacy.png",
       "package": "com.shopapp",

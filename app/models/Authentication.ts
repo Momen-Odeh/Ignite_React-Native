@@ -8,7 +8,7 @@ export const AuthenticationModel = types
   .model("Authentication")
   .props({
     authToken: types.maybe(types.string),
-    authEmail: "",
+    authEmail: types.optional(types.string, ""),
     password: types.optional(types.string, ""),
   })
   .actions(withSetPropAction)

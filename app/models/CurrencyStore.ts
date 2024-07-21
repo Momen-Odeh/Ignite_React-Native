@@ -8,11 +8,11 @@ import { api } from "app/services/api"
 export const CurrencyStoreModel = types
   .model("CurrencyStore")
   .props({
-    baseCurrency: "1",
-    quoteCurrency: "3.63",
-    baseCurrencyTitle: "USD",
-    quoteCurrencyTitle: "ILS",
-    exchangeRate: 1,
+    baseCurrency: types.optional(types.string, "1"),
+    quoteCurrency: types.optional(types.string, "3.65"),
+    baseCurrencyTitle: types.optional(types.string, "USD"),
+    quoteCurrencyTitle: types.optional(types.string, "ILS"),
+    exchangeRate: types.optional(types.number, 1),
   })
   .actions(withSetPropAction)
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
