@@ -1,6 +1,6 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { TextStyle, View, ViewStyle } from "react-native"
+import { KeyboardTypeOptions, TextStyle, View, ViewStyle } from "react-native"
 import { TextField } from "./TextField"
 import { colors } from "app/theme"
 import { Button } from "./Button"
@@ -11,6 +11,7 @@ export interface CurrencyInputProps {
   onValueChange?: (param: string) => void
   onButtonPress?: () => void
   currencyTitle: string
+  keyboardType?: KeyboardTypeOptions
 }
 
 /**
@@ -22,6 +23,7 @@ export const CurrencyInput = observer(function CurrencyInput({
   value,
   onValueChange,
   onButtonPress,
+  keyboardType = "numeric",
 }: CurrencyInputProps) {
   return (
     <View style={$container}>
@@ -30,41 +32,26 @@ export const CurrencyInput = observer(function CurrencyInput({
         textStyle={$buttonText}
         text={currencyTitle}
         onPress={onButtonPress}
-      ></Button>
+      />
       <TextField
         containerStyle={$Input}
         style={$InputText}
         inputWrapperStyle={$InputBox}
         status={disabled ? "disabled" : undefined}
-        value={value}
+        value={isNaN(Number(value)) ? "0" : value}
         onChangeText={onValueChange}
-        // label="Email"
-        // value={authEmail}
-        // onChange={(v) => {
-        //   setAuthEmail(v.nativeEvent.text)
-        // }}
-        // placeholder="Please enter your Email"
-        // keyboardType="email-address"
+        keyboardType={keyboardType}
       />
     </View>
   )
 })
 
 const $container: ViewStyle = {
-  // backgroundColor: "green",
-  // backgroundColor: colors.primary.white,
-  // marginVertical: 10,
-  // marginHorizontal: 20,
   flexDirection: "row",
   borderRadius: 5,
-  // justifyContent: "center",
-  // alignItems: "center",
-  // padding: 20,
   marginBottom: 15,
 }
 const $button: ViewStyle = {
-  // padding: 15,
-  // margin: 0,
   backgroundColor: colors.primary.white,
   borderRightColor: colors.primary.border,
   borderRightWidth: 1,
@@ -78,12 +65,6 @@ const $buttonText: TextStyle = {
 }
 const $Input: ViewStyle = {
   flex: 1,
-  // backgroundColor: "red",
-  // flex: 1,
-  // flexDirection: "row",
-  // width: screen.width,
-  // paddingHorizontal: 20,
-  // marginBottom: 15,
 }
 const $InputBox: TextStyle = {
   flex: 1,
@@ -94,14 +75,7 @@ const $InputBox: TextStyle = {
   justifyContent: "center",
   alignItems: "center",
   padding: 5,
-  // padding: 10,
-  // fontSize: 16,
-  // backgroundColor: "pink",
-  // height: 40,
 }
 const $InputText: TextStyle = {
-  // borderRadius: 100,
-  // padding: 0,
-  // backgroundColor: "red",
   color: colors.primary.textLight,
 }

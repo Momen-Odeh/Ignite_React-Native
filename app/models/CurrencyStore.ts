@@ -19,6 +19,7 @@ export const CurrencyStoreModel = types
   .actions((self) => ({
     setBaseCurrency(value: string) {
       self.setProp("baseCurrency", value)
+      this.updateQuoteCurrency()
     },
     setQuoteCurrency(value: string) {
       self.setProp("quoteCurrency", value)
@@ -34,13 +35,9 @@ export const CurrencyStoreModel = types
     },
     async updateCurrency() {
       try {
-        console.log("in action updateCurrency")
         const res = await api.getExchangeRates(self.baseCurrencyTitle)
         this.setExchangeRate(res.rates[self.quoteCurrencyTitle])
-        // console.log(res.rates[self.quoteCurrencyTitle])
-        // const exchangedCurrency: number =
-        //   parseFloat(self.baseCurrency) * res.rates[self.quoteCurrencyTitle]
-        // this.setQuoteCurrency(exchangedCurrency.toFixed(2))
+        this.updateQuoteCurrency()
         return true
       } catch (error) {
         console.log("there is error in currency api")
@@ -48,10 +45,11 @@ export const CurrencyStoreModel = types
         return false
       }
     },
+    updateQuoteCurrency() {
+      const exchangedCurrency: number = parseFloat(self.baseCurrency) * self.exchangeRate
+      this.setQuoteCurrency(exchangedCurrency.toFixed(2))
+    },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
-// .actions((self) => {
-
-// })
 
 export interface CurrencyStore extends Instance<typeof CurrencyStoreModel> {}
 export interface CurrencyStoreSnapshotOut extends SnapshotOut<typeof CurrencyStoreModel> {}

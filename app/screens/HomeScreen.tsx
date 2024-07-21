@@ -3,38 +3,18 @@ import { observer } from "mobx-react-lite"
 import { ActivityIndicator, Image, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
 import { ModalStackScreenProps } from "app/navigators"
 import currencies from "../utils/data/currencies.json"
-import {
-  // Button,
-  CurrencyInput,
-  HomeLogo,
-  Screen,
-  Text,
-} from "app/components"
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "app/models"
+import { CurrencyInput, HomeLogo, Screen, Text } from "app/components"
 import { colors } from "app/theme"
 import { useStores } from "app/models"
-// import { api } from "app/services/api"
 
 interface HomeScreenProps extends ModalStackScreenProps<"MainStack"> {}
 
 export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ navigation }) {
-  // Pull in one of our MST stores
-  // const {
-  //   authenticationStore: {
-  //     // authEmail,
-  //     logout,
-  //   },
-  //   reset,
-  // } = useStores()
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
   const {
     CurrencyStore: {
       baseCurrency,
       quoteCurrency,
       setBaseCurrency,
-      setQuoteCurrency,
       setBaseCurrencyTitle,
       setQuoteCurrencyTitle,
       baseCurrencyTitle,
@@ -46,34 +26,27 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
   const handelUpdateCurrency = async () => {
     setIsLoading(true)
     if (await updateCurrency()) {
-      console.log(quoteCurrency)
       setIsLoading(false)
+    } else {
+      alert("there is an error in api calling")
     }
   }
   useEffect(() => {
-    console.log("******", baseCurrencyTitle)
-
     if (currencies.includes(baseCurrencyTitle)) {
-      console.log("1111111111111")
       handelUpdateCurrency()
-
-      // api.getExchangeRates(baseCurrency).then((response) => {
-      //   console.log("222222222222")
-
-      // eslint-disable-next-line dot-notation
-      // console.log(response.rates[baseCurrency])
-      // const res: number = parseFloat(response.rates[baseCurrency]) * parseFloat(baseCurrency)
-
-      // setQuoteCurrency(res.toFixed(3))
-      // })
     }
   }, [baseCurrencyTitle, quoteCurrencyTitle])
-  useEffect(() => {
-    const exchangedCurrency: number = parseFloat(baseCurrency) * exchangeRate
-    setQuoteCurrency(exchangedCurrency.toFixed(2))
-  }, [baseCurrency, baseCurrencyTitle, quoteCurrencyTitle])
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  function formatDate(date: number) {
+    const d = new Date(date)
+    const day = d.getDate()
+    const month = d.getMonth() + 1 // Months are zero-based
+    const year = d.getFullYear()
+
+    return `${day}-${month}-${year}`
+  }
+
   return (
     <Screen
       style={$root}
@@ -83,7 +56,6 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
     >
       <HomeLogo />
       <Text text="Currency Converter" style={$homeLogo} preset="heading" />
-      {/* <Text>{authEmail}</Text> */}
       {isLoading ? (
         <ActivityIndicator color={colors.primary.white} size={"large"} />
       ) : (
@@ -93,7 +65,6 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
             value={baseCurrency}
             onValueChange={setBaseCurrency}
             onButtonPress={() => {
-              console.log("on Button press ==> base ")
               navigation.push("CurrencyList", { isBaseCurrency: true })
             }}
           />
@@ -108,10 +79,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
           <Text
             text={`1 ${baseCurrencyTitle} = ${exchangeRate.toFixed(
               2,
-            )} ${quoteCurrencyTitle} as of ${
-              // Date.now()
-              "21-7-2024"
-            }`}
+            )} ${quoteCurrencyTitle} as of ${formatDate(Date.now())}`}
             style={$currencyWeight}
             preset="bold"
           />
