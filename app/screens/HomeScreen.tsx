@@ -1,6 +1,6 @@
-import React, { FC, useEffect } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { Image, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
+import { ActivityIndicator, Image, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
 import { ModalStackScreenProps } from "app/navigators"
 import currencies from "../utils/data/currencies.json"
 import {
@@ -44,8 +44,10 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
     },
   } = useStores()
   const handelUpdateCurrency = async () => {
+    setIsLoading(true)
     if (await updateCurrency()) {
       console.log(quoteCurrency)
+      setIsLoading(false)
     }
   }
   useEffect(() => {
@@ -65,11 +67,13 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
       // setQuoteCurrency(res.toFixed(3))
       // })
     }
-  }, [baseCurrencyTitle])
+  }, [baseCurrencyTitle, quoteCurrencyTitle])
   useEffect(() => {
     const exchangedCurrency: number = parseFloat(baseCurrency) * exchangeRate
     setQuoteCurrency(exchangedCurrency.toFixed(2))
-  }, [baseCurrency, baseCurrencyTitle])
+  }, [baseCurrency, baseCurrencyTitle, quoteCurrencyTitle])
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   return (
     <Screen
       style={$root}
@@ -80,39 +84,50 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
       <HomeLogo />
       <Text text="Currency Converter" style={$homeLogo} preset="heading" />
       {/* <Text>{authEmail}</Text> */}
-      <CurrencyInput
-        currencyTitle={baseCurrencyTitle}
-        value={baseCurrency}
-        onValueChange={setBaseCurrency}
-        onButtonPress={() => {
-          console.log("on Button press ==> base ")
-          navigation.push("CurrencyList", { isBaseCurrency: true })
-        }}
-      />
-      <CurrencyInput
-        currencyTitle={quoteCurrencyTitle}
-        disabled={true}
-        value={quoteCurrency}
-        onButtonPress={() => {
-          navigation.push("CurrencyList", { isBaseCurrency: false })
-        }}
-      />
-      <Text
-        text={`1 ${"USD"} = ${3.63} ${"ILS"} as of 18-7-2024`}
-        style={$currencyWeight}
-        preset="bold"
-      />
+      {isLoading ? (
+        <ActivityIndicator color={colors.primary.white} size={"large"} />
+      ) : (
+        <>
+          <CurrencyInput
+            currencyTitle={baseCurrencyTitle}
+            value={baseCurrency}
+            onValueChange={setBaseCurrency}
+            onButtonPress={() => {
+              console.log("on Button press ==> base ")
+              navigation.push("CurrencyList", { isBaseCurrency: true })
+            }}
+          />
+          <CurrencyInput
+            currencyTitle={quoteCurrencyTitle}
+            disabled={true}
+            value={quoteCurrency}
+            onButtonPress={() => {
+              navigation.push("CurrencyList", { isBaseCurrency: false })
+            }}
+          />
+          <Text
+            text={`1 ${baseCurrencyTitle} = ${exchangeRate.toFixed(
+              2,
+            )} ${quoteCurrencyTitle} as of ${
+              // Date.now()
+              "21-7-2024"
+            }`}
+            style={$currencyWeight}
+            preset="bold"
+          />
 
-      <TouchableOpacity
-        style={$reverseCurrencyContainer}
-        onPress={() => {
-          setBaseCurrencyTitle(quoteCurrencyTitle)
-          setQuoteCurrencyTitle(baseCurrencyTitle)
-        }}
-      >
-        <Image source={require("../../assets/images/currency-reverse.png")} />
-        <Text text="Reverse Currency" style={$reverseCurrencyText} preset="bold" />
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={$reverseCurrencyContainer}
+            onPress={() => {
+              setBaseCurrencyTitle(quoteCurrencyTitle)
+              setQuoteCurrencyTitle(baseCurrencyTitle)
+            }}
+          >
+            <Image source={require("../../assets/images/currency-reverse.png")} />
+            <Text text="Reverse Currency" style={$reverseCurrencyText} preset="bold" />
+          </TouchableOpacity>
+        </>
+      )}
       {/* <Button
         onPress={() => {
           logout().then((response) => {
