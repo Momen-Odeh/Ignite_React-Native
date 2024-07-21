@@ -14,7 +14,7 @@ import {
 // import { useStores } from "app/models"
 import { colors } from "app/theme"
 import { useStores } from "app/models"
-import { api } from "app/services/api"
+// import { api } from "app/services/api"
 
 interface HomeScreenProps extends ModalStackScreenProps<"MainStack"> {}
 
@@ -39,25 +39,37 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
       setQuoteCurrencyTitle,
       baseCurrencyTitle,
       quoteCurrencyTitle,
+      updateCurrency,
+      exchangeRate,
     },
   } = useStores()
+  const handelUpdateCurrency = async () => {
+    if (await updateCurrency()) {
+      console.log(quoteCurrency)
+    }
+  }
   useEffect(() => {
     console.log("******", baseCurrencyTitle)
 
     if (currencies.includes(baseCurrencyTitle)) {
       console.log("1111111111111")
+      handelUpdateCurrency()
 
-      api.getExchangeRates(baseCurrency).then((response) => {
-        console.log("222222222222")
+      // api.getExchangeRates(baseCurrency).then((response) => {
+      //   console.log("222222222222")
 
-        // eslint-disable-next-line dot-notation
-        console.log(response.rates[baseCurrency])
-        const res: number = parseFloat(response.rates[baseCurrency]) * parseFloat(baseCurrency)
+      // eslint-disable-next-line dot-notation
+      // console.log(response.rates[baseCurrency])
+      // const res: number = parseFloat(response.rates[baseCurrency]) * parseFloat(baseCurrency)
 
-        setQuoteCurrency(res.toFixed(3))
-      })
+      // setQuoteCurrency(res.toFixed(3))
+      // })
     }
-  }, [baseCurrency])
+  }, [baseCurrencyTitle])
+  useEffect(() => {
+    const exchangedCurrency: number = parseFloat(baseCurrency) * exchangeRate
+    setQuoteCurrency(exchangedCurrency.toFixed(2))
+  }, [baseCurrency, baseCurrencyTitle])
   return (
     <Screen
       style={$root}
