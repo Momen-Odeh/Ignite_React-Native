@@ -96,16 +96,6 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
           </TouchableOpacity>
         </>
       )}
-      {/* <Button
-        onPress={() => {
-          logout().then((response) => {
-            if (response) reset()
-          })
-          // navigation.pop()
-        }}
-      >
-        Log Out
-      </Button> */}
     </Screen>
   )
 })

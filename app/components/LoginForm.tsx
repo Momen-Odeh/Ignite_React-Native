@@ -15,14 +15,7 @@ export interface LoginFormProps {
  */
 export const LoginForm = observer(function LoginForm() {
   const {
-    authenticationStore: {
-      setAuthEmail,
-      authEmail,
-      doUserLogin,
-      // isValidPassword,
-      setPassword,
-      password,
-    },
+    authenticationStore: { setAuthEmail, authEmail, doUserLogin, setPassword, password },
   } = useStores()
   const signIn = () => {
     doUserLogin().catch((error: any) => {
@@ -50,7 +43,7 @@ export const LoginForm = observer(function LoginForm() {
         // )}
       />
       <TextField
-        keyboardType="visible-password"
+        // keyboardType=""
         containerStyle={$InputAuth}
         style={$InputAuthText}
         inputWrapperStyle={$InputBox}

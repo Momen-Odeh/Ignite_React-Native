@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import * as Screens from "app/screens"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { ModalStackNavigator } from "./ModalStackNavigator"
+import { Icon } from "app/components"
 
 export type TabStackParamList = {
   HomeTap: undefined
@@ -18,10 +19,27 @@ export type TabsScreenProps<T extends keyof TabStackParamList> = NativeStackScre
 const Tab = createBottomTabNavigator<TabStackParamList>()
 export const HomeTapNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="HomeTap" component={ModalStackNavigator} />
-      <Tab.Screen name="Settings" component={Screens.SettingsScreen} />
-      <Tab.Screen name="Users" component={Screens.UsersScreen} />
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen
+        name="HomeTap"
+        component={ModalStackNavigator}
+        options={{
+          tabBarIcon: ({ color, size }) => <Icon icon="more" color={color} size={size} />,
+          tabBarLabel: "Home",
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={Screens.SettingsScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => <Icon icon="settings" color={color} size={size} />,
+        }}
+      />
+      {/* <Tab.Screen name="Users" component={Screens.UsersScreen} /> */}
     </Tab.Navigator>
   )
 }
