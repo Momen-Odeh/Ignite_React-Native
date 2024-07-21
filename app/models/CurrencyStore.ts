@@ -49,6 +49,11 @@ export const CurrencyStoreModel = types
       const exchangedCurrency: number = parseFloat(self.baseCurrency) * self.exchangeRate
       this.setQuoteCurrency(exchangedCurrency.toFixed(2))
     },
+    reset() {
+      self.setProp("baseCurrencyTitle", "USD")
+      self.setProp("baseCurrency", "1")
+      self.setProp("quoteCurrencyTitle", "ILS")
+    },
   })) // eslint-disable-line @typescript-eslint/no-unused-vars
 
 export interface CurrencyStore extends Instance<typeof CurrencyStoreModel> {}

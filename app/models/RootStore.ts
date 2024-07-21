@@ -15,6 +15,7 @@ export const RootStoreModel = types
     reset() {
       // should be the last call
       store.authenticationStore.reset()
+      store.CurrencyStore.reset()
     },
   }))
 

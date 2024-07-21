@@ -21,6 +21,7 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
       quoteCurrencyTitle,
       updateCurrency,
       exchangeRate,
+      reset,
     },
   } = useStores()
   const handelUpdateCurrency = async () => {
@@ -36,6 +37,11 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
       handelUpdateCurrency()
     }
   }, [baseCurrencyTitle, quoteCurrencyTitle])
+  useEffect(() => {
+    return () => {
+      reset()
+    }
+  }, [])
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   function formatDate(date: number) {
