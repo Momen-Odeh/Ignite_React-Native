@@ -23,6 +23,11 @@ const en = {
       button: "Let's try this again",
     },
   },
+  LoginScreen: {
+    Login: "Log In",
+    placeholderEmail: "Please enter your Email",
+    placeholderPassword: "Please enter your Password",
+  },
 }
 
 export default en

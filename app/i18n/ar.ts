@@ -25,6 +25,11 @@ const ar: Translations = {
       button: "لنحاول هذا مرّة أخرى",
     },
   },
+  LoginScreen: {
+    Login: "تسجيل الدخول",
+    placeholderEmail: "الرجاءأدخال بريدك الإلكتروني",
+    placeholderPassword: "الرجاءأدخال كلمةالسر",
+  },
 }
 
 export default ar

@@ -15,7 +15,7 @@ export const LogInScreen: FC<LogInScreenProps> = observer(function LogInScreen()
       backgroundColor={colors.primary.blue}
       statusBarStyle="light"
     >
-      <Text text="Log In" style={$textLogo} preset="heading" />
+      <Text tx={"LoginScreen.Login"} style={$textLogo} preset="heading" />
       <LoginForm />
     </Screen>
   )

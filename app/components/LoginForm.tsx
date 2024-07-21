@@ -34,7 +34,7 @@ export const LoginForm = observer(function LoginForm() {
         onChange={(v) => {
           setAuthEmail(v.nativeEvent.text)
         }}
-        placeholder="Please enter your Email"
+        placeholderTx="LoginScreen.placeholderEmail"
         keyboardType="email-address"
         // status="error"
         // helper="This is a helper text"
@@ -47,16 +47,19 @@ export const LoginForm = observer(function LoginForm() {
         containerStyle={$InputAuth}
         style={$InputAuthText}
         inputWrapperStyle={$InputBox}
-        placeholder="Please enter your Password"
+        placeholderTx="LoginScreen.placeholderPassword"
         // label="Password"
         secureTextEntry={true}
         value={password}
         // status={isValidPassword ? undefined : "error"}
         onChangeText={setPassword}
       />
-      <Button onPress={signIn} style={$ButtonSignIn} textStyle={$ButtonFont}>
-        Sign In
-      </Button>
+      <Button
+        onPress={signIn}
+        style={$ButtonSignIn}
+        textStyle={$ButtonFont}
+        tx="LoginScreen.Login"
+      />
     </View>
   )
 })
