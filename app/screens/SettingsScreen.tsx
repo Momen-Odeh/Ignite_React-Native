@@ -70,6 +70,8 @@ export const SettingsScreen: FC<SettingsScreenProps> = observer(function Setting
       },
     ],
   }
+
+  const categories = [accountSetting, supportSetting]
   return (
     <Screen
       style={$root}
@@ -77,8 +79,9 @@ export const SettingsScreen: FC<SettingsScreenProps> = observer(function Setting
       safeAreaEdges={["top", "bottom"]}
       backgroundColor={colors.primary.white}
     >
-      <SettingContainer contents={accountSetting} />
-      <SettingContainer contents={supportSetting} />
+      {categories.map((item, index) => (
+        <SettingContainer contents={item} key={index} />
+      ))}
 
       <Button
         onPress={() => {

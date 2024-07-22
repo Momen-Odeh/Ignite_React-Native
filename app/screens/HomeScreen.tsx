@@ -52,7 +52,6 @@ export const HomeScreen: FC<HomeScreenProps> = observer(function HomeScreen({ na
 
     return `${day}-${month}-${year}`
   }
-
   return (
     <Screen
       style={$root}

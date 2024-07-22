@@ -32,6 +32,13 @@ export const HomeTapNavigator = () => {
           tabBarLabel: "Home",
         }}
       />
+      {/* <Tab.Screen
+        name="Users"
+        component={Screens.UsersScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => <Icon icon="x" color={color} size={size} />,
+        }}
+      /> */}
       <Tab.Screen
         name="Settings"
         component={Screens.SettingsScreen}
@@ -39,7 +46,6 @@ export const HomeTapNavigator = () => {
           tabBarIcon: ({ color, size }) => <Icon icon="settings" color={color} size={size} />,
         }}
       />
-      {/* <Tab.Screen name="Users" component={Screens.UsersScreen} /> */}
     </Tab.Navigator>
   )
 }
