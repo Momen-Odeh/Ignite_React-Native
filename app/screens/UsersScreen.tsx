@@ -1,8 +1,7 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle } from "react-native"
 import { TabsScreenProps } from "app/navigators"
-import { Screen, Text } from "app/components"
+import { RawabiScreen, RawabiScreen2, Text } from "app/components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
@@ -15,12 +14,12 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
-    <Screen style={$root} preset="scroll" safeAreaEdges={["top", "bottom"]}>
-      <Text text="users" />
-    </Screen>
+    <RawabiScreen2>
+      <Text text="test component" />
+    </RawabiScreen2>
   )
 })
 
-const $root: ViewStyle = {
-  flex: 1,
-}
+// const $root: ViewStyle = {
+//   flex: 1,
+// }
