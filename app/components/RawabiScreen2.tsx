@@ -9,7 +9,7 @@ export interface RawabiScreen2Props {
 
 export const RawabiScreen2 = observer(function RawabiScreen2({ children }: RawabiScreen2Props) {
   return (
-    <Screen safeAreaEdges={["top"]} backgroundColor="#F6F6F6">
+    <Screen safeAreaEdges={["top"]} backgroundColor="#F6F6F6" style={$Screen}>
       <View style={$container}>
         {children}
         <View style={$topCurve} />
@@ -18,10 +18,12 @@ export const RawabiScreen2 = observer(function RawabiScreen2({ children }: Rawab
     </Screen>
   )
 })
+const $Screen: ViewStyle = {}
 const $container: ViewStyle = {
   backgroundColor: "#F6F6F6",
   height: "100%",
   width: "100%",
+  padding: 20,
 }
 const $topCurve: ViewStyle = {
   zIndex: -900,
