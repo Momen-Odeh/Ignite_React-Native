@@ -2,15 +2,19 @@ import * as React from "react"
 import { TextStyle, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 import { TextField } from "./TextField"
-import { FontAwesome5 } from "@expo/vector-icons"
+import { Feather } from "@expo/vector-icons"
 export interface RawabiTextFiledProps {
   Icon?: JSX.Element
+  isPassword?: boolean
 }
 
 /**
  * Describe your component here
  */
-export const RawabiTextFiled = observer(function RawabiTextFiled({ Icon }: RawabiTextFiledProps) {
+export const RawabiTextFiled = observer(function RawabiTextFiled({
+  Icon,
+  isPassword,
+}: RawabiTextFiledProps) {
   const IconComponent = Icon
     ? React.cloneElement(Icon, { size: 24, color: "#878787", style: $IconLeft })
     : null
@@ -21,6 +25,9 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({ Icon }: Rawab
       containerStyle={$container}
       inputWrapperStyle={$outerContainer}
       LeftAccessory={() => IconComponent}
+      RightAccessory={() => (
+        <Feather name="eye-off" size={24} color={"#878787"} style={$IconRight} />
+      )}
       placeholder={"User name"}
       placeholderTextColor={"#C5C5C7"}
     />
@@ -29,8 +36,6 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({ Icon }: Rawab
 
 const $outerContainer: ViewStyle = {
   // backgroundColor: "red",
-  // justifyContent: "center",
-  // margin: 8,
   paddingVertical: 20,
   paddingHorizontal: 17,
   alignItems: "center",
@@ -52,4 +57,7 @@ const $innerContainer: TextStyle = {
 }
 const $IconLeft: TextStyle = {
   paddingLeft: 17,
+}
+const $IconRight: TextStyle = {
+  paddingRight: 17,
 }
