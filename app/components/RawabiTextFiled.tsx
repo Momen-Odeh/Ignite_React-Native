@@ -15,19 +15,41 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
   Icon,
   isPassword,
 }: RawabiTextFiledProps) {
-  const IconComponent = Icon
-    ? React.cloneElement(Icon, { size: 24, color: "#878787", style: $IconLeft })
-    : null
+  const IconComponent = () =>
+    Icon ? React.cloneElement(Icon, { size: 24, color: "#878787", style: $IconLeft }) : null
+  const [showPassword, setShowPassword] = React.useState<boolean>(false)
 
+  const PasswordIcon = () =>
+    isPassword &&
+    (showPassword ? (
+      <Feather
+        name="eye"
+        size={24}
+        color={"#878787"}
+        style={$IconRight}
+        onPress={changePasswordStatus}
+      />
+    ) : (
+      <Feather
+        name="eye-off"
+        size={24}
+        color={"#878787"}
+        style={$IconRight}
+        onPress={changePasswordStatus}
+      />
+    ))
+
+  function changePasswordStatus() {
+    setShowPassword(!showPassword)
+  }
   return (
     <TextField
       style={$innerContainer}
       containerStyle={$container}
       inputWrapperStyle={$outerContainer}
-      LeftAccessory={() => IconComponent}
-      RightAccessory={() => (
-        <Feather name="eye-off" size={24} color={"#878787"} style={$IconRight} />
-      )}
+      LeftAccessory={IconComponent}
+      secureTextEntry={!showPassword}
+      RightAccessory={PasswordIcon}
       placeholder={"User name"}
       placeholderTextColor={"#C5C5C7"}
     />

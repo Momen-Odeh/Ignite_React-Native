@@ -16,7 +16,7 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
   // const navigation = useNavigation()
   return (
     <RawabiScreen2>
-      <RawabiTextFiled Icon={<FontAwesome5 name="user-circle" isPassword={true} />} />
+      <RawabiTextFiled Icon={<FontAwesome5 name="user-circle" />} isPassword={true} />
       {/* <Text text="test component" /> */}
     </RawabiScreen2>
   )
