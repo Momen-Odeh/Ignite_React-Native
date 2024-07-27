@@ -28,6 +28,13 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
           placeholder="User name"
           helper="this is test to helper text"
         />
+        <RawabiTextFiled
+          // isPassword
+          isResidential
+          Icon={<FontAwesome5 name="user-circle" />}
+          placeholder="User name"
+          helper="this is test to helper text"
+        />
       </>
 
       {/* <Text text="test component" /> */}

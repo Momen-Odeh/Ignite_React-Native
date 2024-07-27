@@ -1,11 +1,13 @@
 import * as React from "react"
-import { TextStyle, ViewStyle } from "react-native"
+import { Platform, Switch, TextStyle, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 import { TextField } from "./TextField"
 import { Feather } from "@expo/vector-icons"
+import { Toggle } from "./Toggle"
 export interface RawabiTextFiledProps {
   Icon?: JSX.Element
   isPassword?: boolean
+  isResidential?: boolean
   placeholder?: string
   helper?: string
 }
@@ -15,37 +17,70 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
   isPassword,
   placeholder,
   helper,
+  isResidential,
 }: RawabiTextFiledProps) {
   const IconComponent = () =>
     Icon ? React.cloneElement(Icon, { size: 24, color: "#878787", style: $IconLeft }) : null
   const [showPassword, setShowPassword] = React.useState<boolean>(!isPassword)
+  const [residentialValue, SetResidentialValue] = React.useState<boolean>(false)
 
   const PasswordIcon = () =>
-    isPassword &&
-    (showPassword ? (
-      <Feather
-        name="eye-off"
-        size={24}
-        color={"#878787"}
-        style={$IconRight}
-        onPress={changePasswordStatus}
-      />
+    isPassword ? (
+      showPassword ? (
+        <Feather
+          name="eye-off"
+          size={24}
+          color={"#878787"}
+          style={$IconRight}
+          onPress={changePasswordStatus}
+        />
+      ) : (
+        <Feather
+          name="eye"
+          size={24}
+          color={"#878787"}
+          style={$IconRight}
+          onPress={changePasswordStatus}
+        />
+      )
     ) : (
-      <Feather
-        name="eye"
-        size={24}
-        color={"#878787"}
-        style={$IconRight}
-        onPress={changePasswordStatus}
-      />
-    ))
-
+      isResidential && (
+        <Switch
+          trackColor={{ false: "#4C565E", true: "#4C565E" }}
+          thumbColor={residentialValue ? "#A0CF67" : "#f4f3f4"}
+          onValueChange={SetResidentialValue}
+          value={residentialValue}
+          ios_backgroundColor="#4C565E"
+          style={
+            Platform.OS === "android"
+              ? [{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }, $SwitchRight]
+              : $SwitchRight
+          }
+        />
+        // <Toggle
+        //   variant="switch"
+        //   value={residentialValue}
+        //   onValueChange={SetResidentialValue}
+        //   containerStyle={[$IconRight]}
+        //   inputOuterStyle={{
+        //     backgroundColor: "#4C565E",
+        //   }}
+        //   inputDetailStyle={{
+        //     backgroundColor: "#A0CF67",
+        //     // borderRadius: 0,
+        //   }}
+        // />
+      )
+    )
   function changePasswordStatus() {
     setShowPassword(!showPassword)
   }
+  const textStyle = [$innerContainer]
+  if (isResidential) textStyle.push($ResidentialStyle)
   return (
     <TextField
-      style={$innerContainer}
+      style={textStyle}
+      value={isResidential ? "Are you a resident of Rawabi?" : undefined}
       containerStyle={$container}
       inputWrapperStyle={$outerContainer}
       LeftAccessory={IconComponent}
@@ -64,7 +99,7 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
           //  textAlign: "right"
         },
       }}
-      // HelperTextProps={{}}
+      status={isResidential ? "disabled" : undefined}
     />
   )
 })
@@ -83,7 +118,7 @@ const $container: ViewStyle = {
 }
 
 const $innerContainer: TextStyle = {
-  color: "#AAAAAA",
+  color: "#4C575D",
   // fontFamily:"Poppins"
   fontWeight: "400",
   fontSize: 14,
@@ -96,3 +131,7 @@ const $IconLeft: TextStyle = {
 const $IconRight: TextStyle = {
   paddingRight: 17,
 }
+const $SwitchRight: TextStyle = {
+  marginRight: 17,
+}
+const $ResidentialStyle: TextStyle = {}
