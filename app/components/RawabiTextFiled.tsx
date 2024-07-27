@@ -2,8 +2,7 @@ import * as React from "react"
 import { Platform, Switch, TextStyle, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 import { TextField } from "./TextField"
-import { Feather } from "@expo/vector-icons"
-import { Toggle } from "./Toggle"
+import { Feather, FontAwesome } from "@expo/vector-icons"
 export interface RawabiTextFiledProps {
   Icon?: JSX.Element
   isPassword?: boolean
@@ -20,7 +19,15 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
   isResidential,
 }: RawabiTextFiledProps) {
   const IconComponent = () =>
-    Icon ? React.cloneElement(Icon, { size: 24, color: "#878787", style: $IconLeft }) : null
+    Icon
+      ? React.cloneElement(Icon, { size: 24, color: "#878787", style: $IconLeft })
+      : isResidential
+      ? React.cloneElement(<FontAwesome name="building-o" />, {
+          size: 24,
+          color: "#878787",
+          style: [$IconLeft, Platform.OS === "android" ? { marginBottom: 10 } : undefined],
+        })
+      : null
   const [showPassword, setShowPassword] = React.useState<boolean>(!isPassword)
   const [residentialValue, SetResidentialValue] = React.useState<boolean>(false)
 
@@ -105,13 +112,13 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
 })
 
 const $outerContainer: ViewStyle = {
-  // backgroundColor: "red",
   paddingVertical: 20,
   paddingHorizontal: 17,
   alignItems: "center",
   backgroundColor: "#fff",
   borderColor: "#fff",
   borderRadius: 10,
+  // justifyContent: "center",
 }
 const $container: ViewStyle = {
   // backgroundColor: "blue",
@@ -124,14 +131,19 @@ const $innerContainer: TextStyle = {
   fontSize: 14,
   lineHeight: 21,
   marginLeft: 20,
+  // backgroundColor: "red",
 }
 const $IconLeft: TextStyle = {
   paddingLeft: 17,
+  // backgroundColor: "red",
 }
 const $IconRight: TextStyle = {
   paddingRight: 17,
 }
 const $SwitchRight: TextStyle = {
   marginRight: 17,
+  // backgroundColor: "red",
 }
-const $ResidentialStyle: TextStyle = {}
+const $ResidentialStyle: TextStyle = {
+  // backgroundColor: "blue",
+}

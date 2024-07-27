@@ -7,7 +7,7 @@ import {
   RawabiTextFiled,
   //  ,Text
 } from "app/components"
-import { FontAwesome5 } from "@expo/vector-icons"
+import { FontAwesome, FontAwesome5, FontAwesome6 } from "@expo/vector-icons"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
@@ -31,7 +31,6 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
         <RawabiTextFiled
           // isPassword
           isResidential
-          Icon={<FontAwesome5 name="user-circle" />}
           placeholder="User name"
           helper="this is test to helper text"
         />
