@@ -5,14 +5,24 @@ import { TextStyle, ViewStyle } from "react-native"
 
 export interface RawabiButtonProps {
   children?: JSX.Element
+  text: string
+  backgroundColor?: string
 }
 
 /**
  * Describe your component here
  */
-export const RawabiButton = observer(function RawabiButton({ children }: RawabiButtonProps) {
+export const RawabiButton = observer(function RawabiButton({
+  children,
+  text,
+  backgroundColor,
+}: RawabiButtonProps) {
   return (
-    <Button text="Login" style={$button} textStyle={$textButton}>
+    <Button
+      text={text}
+      style={[$button, backgroundColor !== undefined ? { backgroundColor } : undefined]}
+      textStyle={$textButton}
+    >
       {children}
     </Button>
   )

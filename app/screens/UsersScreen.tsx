@@ -8,7 +8,13 @@ import {
   RawabiTextFiled,
   //  ,Text
 } from "app/components"
-import { FontAwesome5 } from "@expo/vector-icons"
+import { Feather, FontAwesome5 } from "@expo/vector-icons"
+import {
+  // Dimensions,
+  Image,
+  View,
+  ViewStyle,
+} from "react-native"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
 
@@ -22,27 +28,27 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
   // const navigation = useNavigation()
   return (
     <RawabiScreen2>
-      <>
+      <View style={$container}>
+        <Image source={require("../../assets/images/RawabiLogo.png")} />
         <RawabiTextFiled
-          isPassword
           Icon={<FontAwesome5 name="user-circle" />}
-          placeholder="User name"
-          helper="this is test to helper text"
+          placeholder="Email address"
+          // helper="this is test to helper text"
         />
-        <RawabiTextFiled
-          // isPassword
-          isResidential
-          placeholder="User name"
-          helper="this is test to helper text"
-        />
-        <RawabiButton />
-      </>
+        <RawabiTextFiled isPassword placeholder="Password" Icon={<Feather name="lock" />} />
+        <RawabiButton text={"Login"} />
+        <RawabiButton text={"Continue as a Guest"} backgroundColor="#4C575D" />
 
-      {/* <Text text="test component" /> */}
+        {/* <Text text="test component" /> */}
+      </View>
     </RawabiScreen2>
   )
 })
 
-// const $root: ViewStyle = {
-//   flex: 1,
-// }
+const $container: ViewStyle = {
+  // width: Dimensions.get("window").width,
+  // height: Dimensions.get("window").height,
+  // alignItems: "center",
+  // justifyContent: "center",
+  // backgroundColor: "red",
+}

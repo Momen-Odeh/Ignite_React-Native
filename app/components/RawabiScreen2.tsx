@@ -4,12 +4,24 @@ import { observer } from "mobx-react-lite"
 import { Screen } from "./Screen"
 
 export interface RawabiScreen2Props {
-  children: JSX.Element
+  children: React.ReactNode
+  style?: ViewStyle
+  contentContainerStyle?: ViewStyle
 }
 
-export const RawabiScreen2 = observer(function RawabiScreen2({ children }: RawabiScreen2Props) {
+export const RawabiScreen2 = observer(function RawabiScreen2({
+  children,
+  style,
+  contentContainerStyle,
+}: RawabiScreen2Props) {
   return (
-    <Screen safeAreaEdges={["top"]} preset="scroll" backgroundColor="#F6F6F6" style={$Screen}>
+    <Screen
+      safeAreaEdges={["top"]}
+      preset="scroll"
+      backgroundColor="#F6F6F6"
+      style={style}
+      contentContainerStyle={contentContainerStyle}
+    >
       <View style={$container}>
         {children}
         <View style={$topCurve} />
@@ -18,7 +30,6 @@ export const RawabiScreen2 = observer(function RawabiScreen2({ children }: Rawab
     </Screen>
   )
 })
-const $Screen: ViewStyle = {}
 const $container: ViewStyle = {
   backgroundColor: "#F6F6F6",
   height: Dimensions.get("window").height,
