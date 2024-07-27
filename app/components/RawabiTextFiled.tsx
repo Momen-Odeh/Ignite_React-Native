@@ -6,24 +6,25 @@ import { Feather } from "@expo/vector-icons"
 export interface RawabiTextFiledProps {
   Icon?: JSX.Element
   isPassword?: boolean
+  placeholder?: string
+  helper?: string
 }
 
-/**
- * Describe your component here
- */
 export const RawabiTextFiled = observer(function RawabiTextFiled({
   Icon,
   isPassword,
+  placeholder,
+  helper,
 }: RawabiTextFiledProps) {
   const IconComponent = () =>
     Icon ? React.cloneElement(Icon, { size: 24, color: "#878787", style: $IconLeft }) : null
-  const [showPassword, setShowPassword] = React.useState<boolean>(false)
+  const [showPassword, setShowPassword] = React.useState<boolean>(!isPassword)
 
   const PasswordIcon = () =>
     isPassword &&
     (showPassword ? (
       <Feather
-        name="eye"
+        name="eye-off"
         size={24}
         color={"#878787"}
         style={$IconRight}
@@ -31,7 +32,7 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
       />
     ) : (
       <Feather
-        name="eye-off"
+        name="eye"
         size={24}
         color={"#878787"}
         style={$IconRight}
@@ -48,10 +49,22 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
       containerStyle={$container}
       inputWrapperStyle={$outerContainer}
       LeftAccessory={IconComponent}
-      secureTextEntry={!showPassword}
       RightAccessory={PasswordIcon}
-      placeholder={"User name"}
+      secureTextEntry={!showPassword}
+      placeholder={placeholder}
       placeholderTextColor={"#C5C5C7"}
+      helper={helper}
+      HelperTextProps={{
+        size: "xs",
+        onPress: () => {
+          console.log("press on the handler", placeholder)
+        },
+        style: {
+          color: "#878787",
+          //  textAlign: "right"
+        },
+      }}
+      // HelperTextProps={{}}
     />
   )
 })

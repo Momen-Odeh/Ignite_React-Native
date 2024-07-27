@@ -1,7 +1,12 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { TabsScreenProps } from "app/navigators"
-import { RawabiScreen, RawabiScreen2, RawabiTextFiled, Text } from "app/components"
+import {
+  // RawabiScreen,
+  RawabiScreen2,
+  RawabiTextFiled,
+  //  ,Text
+} from "app/components"
 import { FontAwesome5 } from "@expo/vector-icons"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "app/models"
@@ -16,7 +21,15 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
   // const navigation = useNavigation()
   return (
     <RawabiScreen2>
-      <RawabiTextFiled Icon={<FontAwesome5 name="user-circle" />} isPassword={true} />
+      <>
+        <RawabiTextFiled
+          isPassword
+          Icon={<FontAwesome5 name="user-circle" />}
+          placeholder="User name"
+          helper="this is test to helper text"
+        />
+      </>
+
       {/* <Text text="test component" /> */}
     </RawabiScreen2>
   )

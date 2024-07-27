@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, ViewStyle } from "react-native"
+import { Dimensions, View, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
 import { Screen } from "./Screen"
 
@@ -9,7 +9,7 @@ export interface RawabiScreen2Props {
 
 export const RawabiScreen2 = observer(function RawabiScreen2({ children }: RawabiScreen2Props) {
   return (
-    <Screen safeAreaEdges={["top"]} backgroundColor="#F6F6F6" style={$Screen}>
+    <Screen safeAreaEdges={["top"]} preset="scroll" backgroundColor="#F6F6F6" style={$Screen}>
       <View style={$container}>
         {children}
         <View style={$topCurve} />
@@ -21,7 +21,7 @@ export const RawabiScreen2 = observer(function RawabiScreen2({ children }: Rawab
 const $Screen: ViewStyle = {}
 const $container: ViewStyle = {
   backgroundColor: "#F6F6F6",
-  height: "100%",
+  height: Dimensions.get("window").height,
   width: "100%",
   padding: 20,
 }
