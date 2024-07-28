@@ -121,6 +121,7 @@ const $outerContainer: ViewStyle = {
   // justifyContent: "center",
 }
 const $container: ViewStyle = {
+  width: "100%",
   // backgroundColor: "blue",
 }
 

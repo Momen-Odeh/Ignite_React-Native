@@ -7,6 +7,8 @@ export interface RawabiButtonProps {
   children?: JSX.Element
   text: string
   backgroundColor?: string
+  containerStyle?: ViewStyle
+  textStyle?: TextStyle
 }
 
 /**
@@ -16,12 +18,18 @@ export const RawabiButton = observer(function RawabiButton({
   children,
   text,
   backgroundColor,
+  containerStyle,
+  textStyle,
 }: RawabiButtonProps) {
   return (
     <Button
       text={text}
-      style={[$button, backgroundColor !== undefined ? { backgroundColor } : undefined]}
-      textStyle={$textButton}
+      style={[
+        $button,
+        backgroundColor !== undefined ? { backgroundColor } : undefined,
+        containerStyle,
+      ]}
+      textStyle={[$textButton, textStyle]}
     >
       {children}
     </Button>
@@ -29,6 +37,7 @@ export const RawabiButton = observer(function RawabiButton({
 })
 
 const $button: ViewStyle = {
+  width: "100%",
   backgroundColor: "#A0CF67",
   borderRadius: 32,
   paddingHorizontal: 30,

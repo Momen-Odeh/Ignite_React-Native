@@ -34,7 +34,7 @@ const $container: ViewStyle = {
   backgroundColor: "#F6F6F6",
   height: Dimensions.get("window").height,
   width: "100%",
-  padding: 20,
+  // padding: 20,
 }
 const $topCurve: ViewStyle = {
   zIndex: -900,

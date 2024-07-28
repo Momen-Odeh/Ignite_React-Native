@@ -12,32 +12,31 @@ import { Feather, FontAwesome5 } from "@expo/vector-icons"
 import {
   // Dimensions,
   Image,
+  ImageStyle,
   View,
   ViewStyle,
 } from "react-native"
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "app/models"
 
 interface UsersScreenProps extends TabsScreenProps<"Users"> {}
 
 export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
-
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
   return (
     <RawabiScreen2>
       <View style={$container}>
-        <Image source={require("../../assets/images/RawabiLogo.png")} />
-        <RawabiTextFiled
-          Icon={<FontAwesome5 name="user-circle" />}
-          placeholder="Email address"
-          // helper="this is test to helper text"
-        />
-        <RawabiTextFiled isPassword placeholder="Password" Icon={<Feather name="lock" />} />
-        <RawabiButton text={"Login"} />
-        <RawabiButton text={"Continue as a Guest"} backgroundColor="#4C575D" />
+        <Image source={require("../../assets/images/RawabiLogo.png")} style={$LogoImage} />
+        <View style={$TextFiledContainer}>
+          <RawabiTextFiled
+            Icon={<FontAwesome5 name="user-circle" />}
+            placeholder="Email address"
+
+            // helper="this is test to helper text"
+          />
+          <RawabiTextFiled isPassword placeholder="Password" Icon={<Feather name="lock" />} />
+        </View>
+        <View style={$ButtonsContainers}>
+          <RawabiButton text={"Login"} />
+          <RawabiButton text={"Continue as a Guest"} backgroundColor="#4C575D" />
+        </View>
 
         {/* <Text text="test component" /> */}
       </View>
@@ -46,9 +45,25 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
 })
 
 const $container: ViewStyle = {
-  // width: Dimensions.get("window").width,
-  // height: Dimensions.get("window").height,
-  // alignItems: "center",
-  // justifyContent: "center",
+  // height: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingVertical: 55,
+  paddingHorizontal: 32,
   // backgroundColor: "red",
+}
+
+const $LogoImage: ImageStyle = {
+  marginBottom: 52,
+}
+
+const $TextFiledContainer: ViewStyle = {
+  width: "100%",
+  gap: 24,
+  marginBottom: 70,
+}
+
+const $ButtonsContainers: ViewStyle = {
+  width: "90%",
+  gap: 22,
 }
