@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Platform, Switch, TextStyle, ViewStyle } from "react-native"
 import { observer } from "mobx-react-lite"
-import { TextField } from "./TextField"
+import { TextField, TextFieldProps } from "./TextField"
 import { Feather, FontAwesome } from "@expo/vector-icons"
 export interface RawabiTextFiledProps {
   Icon?: JSX.Element
@@ -9,6 +9,8 @@ export interface RawabiTextFiledProps {
   isResidential?: boolean
   placeholder?: string
   helper?: string
+  status?: TextFieldProps["status"]
+  HelperTextProps?: TextFieldProps["HelperTextProps"]
 }
 
 export const RawabiTextFiled = observer(function RawabiTextFiled({
@@ -17,6 +19,8 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
   placeholder,
   helper,
   isResidential,
+  status,
+  HelperTextProps,
 }: RawabiTextFiledProps) {
   const IconComponent = () =>
     Icon
@@ -103,10 +107,10 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
         },
         style: {
           color: "#878787",
-          //  textAlign: "right"
         },
+        ...HelperTextProps,
       }}
-      status={isResidential ? "disabled" : undefined}
+      status={isResidential ? "disabled" : status}
     />
   )
 })

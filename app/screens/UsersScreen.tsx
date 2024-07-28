@@ -6,6 +6,7 @@ import {
   // RawabiScreen,
   RawabiScreen2,
   RawabiTextFiled,
+  Text,
   //  ,Text
 } from "app/components"
 import { Feather, FontAwesome5 } from "@expo/vector-icons"
@@ -13,6 +14,8 @@ import {
   // Dimensions,
   Image,
   ImageStyle,
+  TextStyle,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native"
@@ -31,14 +34,37 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
 
             // helper="this is test to helper text"
           />
-          <RawabiTextFiled isPassword placeholder="Password" Icon={<Feather name="lock" />} />
+          <RawabiTextFiled
+            isPassword
+            placeholder="Password"
+            Icon={<Feather name="lock" />}
+            helper="Forgot password?"
+            HelperTextProps={{
+              onPress: () => {
+                console.log("i am in forget password")
+              },
+              style: {
+                // font-family: Poppins;
+                textAlign: "right",
+                color: "#4C575D",
+                fontSize: 12,
+                fontWeight: "500",
+                lineHeight: 18,
+              },
+            }}
+          />
         </View>
         <View style={$ButtonsContainers}>
           <RawabiButton text={"Login"} />
           <RawabiButton text={"Continue as a Guest"} backgroundColor="#4C575D" />
         </View>
 
-        {/* <Text text="test component" /> */}
+        <View style={$SignUpCntainer}>
+          <Text style={$TextItem}>Don’t have an account?</Text>
+          <TouchableOpacity onPress={() => console.log("Sigh up here")}>
+            <Text style={[$TextItem, $TextItemSignUp]}>Sign up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </RawabiScreen2>
   )
@@ -66,4 +92,19 @@ const $TextFiledContainer: ViewStyle = {
 const $ButtonsContainers: ViewStyle = {
   width: "90%",
   gap: 22,
+}
+const $SignUpCntainer: ViewStyle = {
+  flexDirection: "row",
+  marginTop: 24,
+  gap: 7,
+}
+const $TextItem: TextStyle = {
+  // font-family: Poppins;
+  fontSize: 12,
+  fontWeight: "500",
+  lineHeight: 18,
+}
+const $TextItemSignUp: TextStyle = {
+  fontWeight: "700",
+  color: "#A0CF67",
 }

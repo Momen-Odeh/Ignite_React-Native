@@ -44,7 +44,7 @@ const $topCurve: ViewStyle = {
   borderBottomStartRadius: 500,
   borderBottomEndRadius: 500,
   position: "absolute",
-  transform: [{ rotate: "50deg" }],
+  transform: [{ rotate: "10deg" }],
 }
 const $bottomCurve: ViewStyle = {
   zIndex: -1000,
