@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite"
 import { TabsScreenProps } from "app/navigators"
 import {
   RawabiButton,
+  // RawabiResidential,
   // RawabiScreen,
   RawabiScreen2,
   RawabiTextFiled,
@@ -31,14 +32,13 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
           <RawabiTextFiled
             Icon={<FontAwesome5 name="user-circle" />}
             placeholder="Email address"
-
-            // helper="this is test to helper text"
+            keyboardType="default"
           />
           <RawabiTextFiled
             isPassword
             placeholder="Password"
             Icon={<Feather name="lock" />}
-            helper="Forgot password?"
+            helper={"Forget password?"}
             HelperTextProps={{
               onPress: () => {
                 console.log("i am in forget password")
@@ -53,6 +53,7 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
               },
             }}
           />
+          {/* <RawabiResidential residentialValue={true} /> */}
         </View>
         <View style={$ButtonsContainers}>
           <RawabiButton text={"Login"} />
