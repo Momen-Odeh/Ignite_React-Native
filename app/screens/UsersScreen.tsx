@@ -1,29 +1,22 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { TabsScreenProps } from "app/navigators"
 import {
   RawabiButton,
-  // RawabiResidential,
-  // RawabiScreen,
+  RawabiCheckbox,
+  RawabiResidential,
   RawabiScreen2,
   RawabiTextFiled,
   Text,
-  //  ,Text
 } from "app/components"
 import { Feather, FontAwesome5 } from "@expo/vector-icons"
-import {
-  // Dimensions,
-  Image,
-  ImageStyle,
-  TextStyle,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native"
+import { Image, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 
 interface UsersScreenProps extends TabsScreenProps<"Users"> {}
 
 export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen() {
+  const [residentialValue, setResidentialValue] = useState<boolean>(false)
+  const [checkboxValue, setcheckboxValue] = useState<boolean>(false)
   return (
     <RawabiScreen2>
       <View style={$container}>
@@ -53,7 +46,11 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
               },
             }}
           />
-          {/* <RawabiResidential residentialValue={true} /> */}
+          <RawabiResidential
+            residentialValue={residentialValue}
+            SetResidentialValue={setResidentialValue}
+          />
+          <RawabiCheckbox value={checkboxValue} setValue={setcheckboxValue} />
         </View>
         <View style={$ButtonsContainers}>
           <RawabiButton text={"Login"} />
