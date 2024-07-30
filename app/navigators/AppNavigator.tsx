@@ -14,6 +14,7 @@ export type AppStackParamList = {
   Welcome: undefined
   LogIn: undefined
   Home: undefined
+  SignUp: undefined
 }
 const exitRoutes = Config.exitRoutes
 
@@ -30,7 +31,7 @@ export const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? "Home" : "LogIn"}
+      initialRouteName={isAuthenticated ? "Home" : "SignUp"} //"LogIn"}
     >
       {isAuthenticated ? (
         <>
@@ -38,7 +39,9 @@ export const AppStack = observer(function AppStack() {
         </>
       ) : (
         <>
-          <Stack.Screen name="LogIn" component={Screens.LogInScreen} />
+          <Stack.Screen name="SignUp" component={Screens.SignUpScreen} />
+
+          {/* <Stack.Screen name="LogIn" component={Screens.LogInScreen} /> */}
         </>
       )}
     </Stack.Navigator>

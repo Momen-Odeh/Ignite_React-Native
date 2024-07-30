@@ -2,16 +2,18 @@ import * as React from "react"
 import { observer } from "mobx-react-lite"
 import { RawabiTextFiled } from "./RawabiTextFiled"
 import { FontAwesome } from "@expo/vector-icons"
-import { Platform, Switch, TextStyle } from "react-native"
+import { Platform, Switch, TextStyle, ViewStyle } from "react-native"
 
 export interface RawabiResidentialProps {
   residentialValue: boolean
   SetResidentialValue: (param: boolean) => void
+  containerStyle?: ViewStyle
 }
 
 export const RawabiResidential = observer(function RawabiResidential({
   residentialValue,
   SetResidentialValue,
+  containerStyle,
 }: RawabiResidentialProps) {
   // const [residentialValue, SetResidentialValue] = React.useState<boolean>(false)
 
@@ -20,6 +22,7 @@ export const RawabiResidential = observer(function RawabiResidential({
       Icon={<FontAwesome name="building-o" />}
       status="disabled"
       value="Are you a resident of Rawabi?"
+      containerStyle={containerStyle}
       RightAccessoryComponent={
         <Switch
           trackColor={{ false: "#4C565E", true: "#4C565E" }}

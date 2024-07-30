@@ -25,7 +25,7 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
         {/* <TextField placeholder="Email adress"  /> */}
         <Image source={require("../../assets/images/RawabiLogo.png")} style={$LogoImage} />
         <View style={$TextFiledContainer}>
-          <TextField />
+          {/* <TextField /> */}
           <RawabiTextFiled
             Icon={<FontAwesome5 name="user-circle" />}
             placeholder="Email address"

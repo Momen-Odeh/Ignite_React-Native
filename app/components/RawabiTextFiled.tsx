@@ -1,5 +1,12 @@
 import * as React from "react"
-import { Platform, TextStyle, TouchableOpacity, ViewStyle } from "react-native"
+import {
+  Platform,
+  ReturnKeyTypeOptions,
+  TextInput,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native"
 import { observer } from "mobx-react-lite"
 import { TextField, TextFieldProps } from "./TextField"
 import { Feather } from "@expo/vector-icons"
@@ -14,6 +21,9 @@ export interface RawabiTextFiledProps {
   onChangeText?: (pram: string) => void
   keyboardType?: TextFieldProps["keyboardType"]
   RightAccessoryComponent?: JSX.Element
+  containerStyle?: ViewStyle
+  returnKeyType?: ReturnKeyTypeOptions
+  ref?: React.Ref<TextInput>
 }
 
 export const RawabiTextFiled = observer(function RawabiTextFiled({
@@ -27,6 +37,9 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
   onChangeText,
   keyboardType,
   RightAccessoryComponent,
+  containerStyle,
+  returnKeyType,
+  ref,
 }: RawabiTextFiledProps) {
   const IconComponent = () =>
     Icon
@@ -65,8 +78,10 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
     <TextField
       style={$innerContainer}
       value={value}
+      ref={ref}
+      returnKeyType={returnKeyType}
       onChangeText={onChangeText}
-      containerStyle={$container}
+      containerStyle={[$container, containerStyle]}
       inputWrapperStyle={$outerContainer}
       LeftAccessory={IconComponent}
       RightAccessory={PasswordIcon}
@@ -90,8 +105,8 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
 })
 
 const $outerContainer: ViewStyle = {
-  paddingVertical: 20,
-  paddingHorizontal: 17,
+  paddingVertical: 15,
+  paddingHorizontal: 20,
   alignItems: "center",
   backgroundColor: "#fff",
   borderColor: "#fff",
@@ -99,7 +114,7 @@ const $outerContainer: ViewStyle = {
   // justifyContent: "center",
 }
 const $container: ViewStyle = {
-  width: "100%",
+  // width: "auto",
   // backgroundColor: "blue",
 }
 
