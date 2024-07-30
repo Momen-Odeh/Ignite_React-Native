@@ -136,6 +136,10 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     return [$viewPresets[preset], $containerStyleOverride]
   }
 
+  // function $Styles(): StyleProp<ViewStyle> {
+  //   return [$stylePreset[preset], $inputStyleOverride]
+  // }
+
   const disabled = TextInputProps.editable === false || status === "disabled"
 
   const placeholderContent = placeholderTx
@@ -155,13 +159,16 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     $inputWrapperStyleOverride,
   ]
 
-  const $inputStyles: StyleProp<TextStyle> = [
-    $inputStyle,
-    disabled && { color: colors.textDim },
-    isRTL && { textAlign: "right" as TextStyle["textAlign"] },
-    TextInputProps.multiline && { height: "auto" },
-    $inputStyleOverride,
-  ]
+  function $inputStyles(): StyleProp<TextStyle> {
+    return [
+      $stylePreset[preset],
+      $inputStyle,
+      disabled && { color: colors.textDim },
+      isRTL && { textAlign: "right" as TextStyle["textAlign"] },
+      TextInputProps.multiline && { height: "auto" },
+      $inputStyleOverride,
+    ]
+  }
 
   const $helperStyles = [
     $helperStyle,
@@ -216,7 +223,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           placeholderTextColor={colors.textDim}
           {...TextInputProps}
           editable={!disabled}
-          style={$inputStyles}
+          style={$inputStyles()}
         />
 
         {!!RightAccessory && (
@@ -251,6 +258,11 @@ const $filled: ViewStyle = {
 }
 
 const $viewPresets = {
+  default: [$basic] as StyleProp<ViewStyle>,
+  filled: [$filled] as StyleProp<ViewStyle>,
+  primary: [] as StyleProp<ViewStyle>,
+}
+const $stylePreset = {
   default: [$basic] as StyleProp<ViewStyle>,
   filled: [$filled] as StyleProp<ViewStyle>,
   primary: [] as StyleProp<ViewStyle>,
