@@ -198,16 +198,17 @@ const $leftAccessoryStyle: ViewStyle = { marginEnd: spacing.xs, zIndex: 1 }
 const $customViewStyle: ViewStyle = {
   // width: "100%",
   backgroundColor: colors.palette.primary300,
-  borderRadius: spacing.xl,
+  borderRadius: 32,
   paddingHorizontal: spacing.lg,
   paddingVertical: spacing.md,
   borderColor: colors.primary.white,
 }
 const $customTextStyle: TextStyle = {
+  // font-family: Poppins;
   color: colors.primary.offWhite,
-  fontSize: spacing.md + 2,
+  fontSize: 18,
   fontWeight: "600",
-  lineHeight: spacing.lg + 3,
+  lineHeight: 27,
   textAlign: "center",
 }
 
@@ -228,9 +229,8 @@ const $viewPresets = {
     { backgroundColor: colors.palette.neutral800 },
   ] as StyleProp<ViewStyle>,
 
-  primary: [$baseViewStyle, $customViewStyle] as StyleProp<ViewStyle>,
+  primary: [$customViewStyle] as StyleProp<ViewStyle>,
   secondary: [
-    $baseViewStyle,
     $customViewStyle,
     { backgroundColor: colors.palette.secondary300 },
   ] as StyleProp<ViewStyle>,
@@ -240,8 +240,8 @@ const $textPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: $baseTextStyle,
   filled: $baseTextStyle,
   reversed: [$baseTextStyle, { color: colors.palette.neutral100 }],
-  primary: [$baseTextStyle, $customTextStyle],
-  secondary: [$baseTextStyle, $customTextStyle],
+  primary: [$customTextStyle],
+  secondary: [$customTextStyle],
 }
 
 const $pressedViewPresets: Record<Presets, StyleProp<ViewStyle>> = {
