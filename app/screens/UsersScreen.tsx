@@ -60,14 +60,15 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
           /> */}
         </View>
         <View style={$ButtonsContainers}>
-          <RawabiButton text={"Login"} />
+          {/* <RawabiButton text={"Login"} /> */}
           <Button preset="primary" text="Login" />
+          <Button preset="secondary" text="Continue as a Guest" />
 
-          <RawabiButton
+          {/* <RawabiButton
             text={"Continue as a Guest"}
             backgroundColor="#4C575D"
             pressedBackgroundColor="#2F383D"
-          />
+          /> */}
         </View>
 
         <View style={$SignUpCntainer}>

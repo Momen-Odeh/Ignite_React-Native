@@ -21,11 +21,15 @@ const palette = {
   // primary500: "#C76542",
   // primary600: "#A54F31",
 
-  secondary100: "#DCDDE9",
-  secondary200: "#BCC0D6",
-  secondary300: "#9196B9",
-  secondary400: "#626894",
-  secondary500: "#41476E",
+  // secondary100: "#DCDDE9",
+  // secondary200: "#BCC0D6",
+  // secondary300: "#9196B9",
+  // secondary400: "#626894",
+  // secondary500: "#41476E",
+
+  secondary200: "#616F76",
+  secondary300: "#4C575D",
+  secondary400: "#2F383D",
 
   accent100: "#FFEED4",
   accent200: "#FFE1B2",
@@ -41,13 +45,13 @@ const palette = {
 } as const
 
 const primary = {
-  basic: palette.primary300,
+  // basic: palette.primary300,
   text: "#343434",
   border: "#E2E2E2",
   blue: "#4F6D7A",
   white: "#FFFFFF",
   textLight: "#797979",
-  offWhite: "#F0F0F0",
+  offWhite: "#FAFAFA",
 }
 
 export const colors = {
@@ -81,7 +85,7 @@ export const colors = {
   /**
    * The main tinting color.
    */
-  tint: palette.primary500,
+  // tint: palette.primary500,
   /**
    * A subtle color used for lines.
    */
