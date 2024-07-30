@@ -6,6 +6,7 @@ import { StyleSheet, TextInput, View } from "react-native"
 import { AppStackScreenProps } from "app/navigators"
 import { RawabiResidential, RawabiTextFiled, Screen } from "app/components"
 import { Feather, FontAwesome, FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons"
+import { TextField } from "../components/TextField"
 
 interface SignUpScreenProps extends AppStackScreenProps<"SignUp"> {}
 
@@ -55,6 +56,7 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
           <RawabiTextFiled key={index} {...item} />
         ))}
       </View>
+      <TextField preset="filled" style={{ width: "50%" }} />
       <RawabiResidential
         containerStyle={styles.RawabiResidentialContainer}
         residentialValue={residentialValue}

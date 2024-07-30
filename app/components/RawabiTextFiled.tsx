@@ -39,6 +39,7 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
   RightAccessoryComponent,
   containerStyle,
   returnKeyType,
+
   ref,
 }: RawabiTextFiledProps) {
   const IconComponent = () =>
@@ -76,6 +77,7 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
   }
   return (
     <TextField
+      preset="filled"
       style={$innerContainer}
       value={value}
       ref={ref}

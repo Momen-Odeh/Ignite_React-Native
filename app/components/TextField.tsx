@@ -19,6 +19,7 @@ export interface TextFieldAccessoryProps {
   editable: boolean
 }
 
+type Presets = keyof typeof $viewPresets
 export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
   /**
    * A style modifier for different input states.
@@ -95,6 +96,10 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * Note: It is a good idea to memoize this.
    */
   LeftAccessory?: ComponentType<TextFieldAccessoryProps>
+  /**
+   * One of the different types of button presets.
+   */
+  preset?: Presets
 }
 
 /**
@@ -103,6 +108,7 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
  * @param {TextFieldProps} props - The props for the `TextField` component.
  * @returns {JSX.Element} The rendered `TextField` component.
  */
+
 export const TextField = forwardRef(function TextField(props: TextFieldProps, ref: Ref<TextInput>) {
   const {
     labelTx,
@@ -125,6 +131,10 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     ...TextInputProps
   } = props
   const input = useRef<TextInput>(null)
+  const preset: Presets = props.preset ?? "default"
+  function $containerStyles(): StyleProp<ViewStyle> {
+    return [$viewPresets[preset], $containerStyleOverride]
+  }
 
   const disabled = TextInputProps.editable === false || status === "disabled"
 
@@ -132,7 +142,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     ? translate(placeholderTx, placeholderTxOptions)
     : placeholder
 
-  const $containerStyles = [$containerStyleOverride]
+  // const $containerStyles = [$containerStyleOverride]
 
   const $labelStyles = [$labelStyle, LabelTextProps?.style]
 
@@ -173,7 +183,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   return (
     <TouchableOpacity
       activeOpacity={1}
-      style={$containerStyles}
+      style={$containerStyles()}
       onPress={focusInput}
       accessibilityState={{ disabled }}
     >
@@ -233,6 +243,18 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   )
 })
 
+const $basic: ViewStyle = {
+  backgroundColor: "red",
+}
+const $filled: ViewStyle = {
+  backgroundColor: "blue",
+}
+
+const $viewPresets = {
+  default: [$basic] as StyleProp<ViewStyle>,
+  filled: [$filled] as StyleProp<ViewStyle>,
+  primary: [] as StyleProp<ViewStyle>,
+}
 const $labelStyle: TextStyle = {
   marginBottom: spacing.xs,
 }
