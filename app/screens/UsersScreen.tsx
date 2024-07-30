@@ -2,12 +2,14 @@ import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { TabsScreenProps } from "app/navigators"
 import {
+  Button,
   RawabiButton,
   RawabiCheckbox,
   RawabiResidential,
   RawabiScreen2,
   RawabiTextFiled,
   Text,
+  TextField,
 } from "app/components"
 import { Feather, FontAwesome5 } from "@expo/vector-icons"
 import { Image, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
@@ -20,6 +22,7 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
   return (
     <RawabiScreen2>
       <View style={$container}>
+        {/* <TextField placeholder="Email adress"  /> */}
         <Image source={require("../../assets/images/RawabiLogo.png")} style={$LogoImage} />
         <View style={$TextFiledContainer}>
           <RawabiTextFiled
@@ -46,14 +49,20 @@ export const UsersScreen: FC<UsersScreenProps> = observer(function UsersScreen()
               },
             }}
           />
-          <RawabiResidential
+          {/* <RawabiResidential
             residentialValue={residentialValue}
             SetResidentialValue={setResidentialValue}
           />
-          <RawabiCheckbox value={checkboxValue} setValue={setcheckboxValue} />
+          <RawabiCheckbox
+            value={checkboxValue}
+            setValue={setcheckboxValue}
+            label="Accept Terms & Conditions and Privacy Policy"
+          /> */}
         </View>
         <View style={$ButtonsContainers}>
           <RawabiButton text={"Login"} />
+          <Button preset="primary" text="Login" />
+
           <RawabiButton
             text={"Continue as a Guest"}
             backgroundColor="#4C575D"

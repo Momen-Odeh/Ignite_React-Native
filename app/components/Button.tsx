@@ -195,6 +195,21 @@ const $baseTextStyle: TextStyle = {
 
 const $rightAccessoryStyle: ViewStyle = { marginStart: spacing.xs, zIndex: 1 }
 const $leftAccessoryStyle: ViewStyle = { marginEnd: spacing.xs, zIndex: 1 }
+const $customViewStyle: ViewStyle = {
+  width: "100%",
+  backgroundColor: colors.palette.primary300,
+  borderRadius: 32,
+  paddingHorizontal: 30,
+  paddingVertical: 18,
+  borderColor: colors.primary.white,
+}
+const $customTextStyle: TextStyle = {
+  color: "#FAFAFA",
+  fontSize: 18,
+  fontWeight: "600",
+  lineHeight: 27,
+  textAlign: "center",
+}
 
 const $viewPresets = {
   default: [
@@ -212,22 +227,27 @@ const $viewPresets = {
     $baseViewStyle,
     { backgroundColor: colors.palette.neutral800 },
   ] as StyleProp<ViewStyle>,
+
+  primary: [$baseViewStyle, $customViewStyle] as StyleProp<ViewStyle>,
 }
 
 const $textPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: $baseTextStyle,
   filled: $baseTextStyle,
   reversed: [$baseTextStyle, { color: colors.palette.neutral100 }],
+  primary: [$baseTextStyle, $customTextStyle],
 }
 
 const $pressedViewPresets: Record<Presets, StyleProp<ViewStyle>> = {
   default: { backgroundColor: colors.palette.neutral200 },
   filled: { backgroundColor: colors.palette.neutral400 },
   reversed: { backgroundColor: colors.palette.neutral700 },
+  primary: { backgroundColor: colors.palette.primary400 },
 }
 
 const $pressedTextPresets: Record<Presets, StyleProp<TextStyle>> = {
   default: { opacity: 0.9 },
   filled: { opacity: 0.9 },
   reversed: { opacity: 0.9 },
+  primary: { opacity: 0.9 },
 }

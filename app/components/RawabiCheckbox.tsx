@@ -2,23 +2,24 @@ import * as React from "react"
 import { observer } from "mobx-react-lite"
 import { Toggle } from "./Toggle"
 import { TextStyle, ViewStyle } from "react-native"
-import { Text } from "./Text"
 
 export interface RawabiCheckboxProps {
   value: boolean
   setValue: (parm: boolean) => void
+  label?: string
 }
 
 export const RawabiCheckbox = observer(function RawabiCheckbox({
   value,
   setValue,
+  label,
 }: RawabiCheckboxProps) {
   return (
     <Toggle
       value={value}
       onValueChange={setValue}
       variant="checkbox"
-      label="Accept Terms & Conditions and Privacy Policy"
+      label={label}
       labelStyle={$labelStyle}
       // inputDetailStyle={{ backgroundColor: "red" }}
       inputInnerStyle={$activeCheckBox}

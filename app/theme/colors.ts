@@ -11,12 +11,15 @@ const palette = {
   neutral800: "#191015",
   neutral900: "#000000",
 
-  primary100: "#F4E0D9",
-  primary200: "#E8C1B4",
-  primary300: "#DDA28E",
-  primary400: "#D28468",
-  primary500: "#C76542",
-  primary600: "#A54F31",
+  // primary100: "#F4E0D9",
+  // primary200: "#E8C1B4",
+  // primary300: "#DDA28E",
+  // primary400: "#D28468",
+  primary200: "#ABCF7F",
+  primary300: "#A0CF67",
+  primary400: "#72A243",
+  // primary500: "#C76542",
+  // primary600: "#A54F31",
 
   secondary100: "#DCDDE9",
   secondary200: "#BCC0D6",
@@ -38,6 +41,7 @@ const palette = {
 } as const
 
 const primary = {
+  basic: palette.primary300,
   text: "#343434",
   border: "#E2E2E2",
   blue: "#4F6D7A",
