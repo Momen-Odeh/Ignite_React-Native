@@ -1,4 +1,4 @@
-import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from "react"
+import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef, useState } from "react"
 import {
   Platform,
   StyleProp,
@@ -180,6 +180,12 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         borderColor: "#E6484880",
         borderWidth: 2,
       },
+      isFocus && {
+        backgroundColor: "#F3F3F3",
+        borderColor: "#A0CF674D",
+        borderWidth: 2,
+      },
+
       TextInputProps.multiline && { minHeight: 112 },
       LeftAccessory && { paddingStart: 0 },
       RightAccessory && { paddingEnd: 0 },
@@ -233,6 +239,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         })
       : undefined
   const [showPassword, setShowPassword] = React.useState<boolean>(!isPassword)
+  const [isFocus, setIsFocus] = useState(false)
   function changePasswordStatus() {
     setShowPassword(!showPassword)
   }
@@ -283,7 +290,10 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         )}
 
         <TextInput
+          /*****************************/
           ref={input}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
           secureTextEntry={secureTextEntry ?? !showPassword}
           underlineColorAndroid={colors.transparent}
           textAlignVertical="center"
