@@ -152,8 +152,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     ? translate(placeholderTx, placeholderTxOptions)
     : placeholder
 
-  // **************************** Styles of the Component ****************************
-  const $labelStyles = [$labelStyle, LabelTextProps?.style]
+  // **************************** Styles of the Component using the preset ****************************
   function $containerStyles(): StyleProp<ViewStyle> {
     return [$containerStylesPresets[preset], $containerStyleOverride]
   }
@@ -179,6 +178,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     ]
   }
   // **************************** End Styles of the Component ****************************
+  const $labelStyles = [$labelStyle, LabelTextProps?.style]
 
   const CustomeHelperTextProps =
     preset === "primary"
@@ -188,7 +188,6 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           onPress: () => console.log("Welcome forget password"),
           style: {
             color: "#878787",
-            //  textAlign: "right"
           },
         }
       : { ...HelperTextProps }
@@ -216,7 +215,6 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           size: 24,
           color: "#878787",
           style: [
-            // $IconLeft,
             Platform.OS === "android" && Icon.props.name === "building-o"
               ? { marginBottom: 10 }
               : undefined,
@@ -249,7 +247,6 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         </TouchableOpacity>
       )
     ) : undefined
-  // RightAccessoryComponent !== undefined && RightAccessoryComponent
 
   //
   return (
@@ -327,9 +324,8 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   )
 })
 
-const $primaryContainerStyles: ViewStyle = {
-  // backgroundColor: "red",
-}
+// **************************************** Styling ****************************************
+const $primaryContainerStyles: ViewStyle = {}
 const $primaryInputStyle: TextStyle = {
   color: "#4C575D",
   // fontFamily:"Poppins"
@@ -337,7 +333,6 @@ const $primaryInputStyle: TextStyle = {
   fontSize: 14,
   lineHeight: 21,
   marginLeft: 20,
-  // backgroundColor: "red",
 }
 const $primaryInputWrapperStyles: ViewStyle = {
   paddingVertical: 15,
@@ -346,25 +341,8 @@ const $primaryInputWrapperStyles: ViewStyle = {
   backgroundColor: "#fff",
   borderColor: "#fff",
   borderRadius: 10,
-  // justifyContent: "center",
-  // backgroundColor: "blue",
 }
 
-const $containerStylesPresets = {
-  default: [] as StyleProp<ViewStyle>,
-  filled: [] as StyleProp<ViewStyle>,
-  primary: [$primaryContainerStyles] as StyleProp<ViewStyle>,
-}
-const $inputStylePreset = {
-  default: [] as StyleProp<ViewStyle>,
-  filled: [] as StyleProp<ViewStyle>,
-  primary: [$primaryInputStyle] as StyleProp<ViewStyle>,
-}
-const $inputWrapperStylesPreset = {
-  default: [] as StyleProp<ViewStyle>,
-  filled: [] as StyleProp<ViewStyle>,
-  primary: [$primaryInputWrapperStyles] as StyleProp<ViewStyle>,
-}
 const $labelStyle: TextStyle = {
   marginBottom: spacing.xs,
 }
@@ -408,4 +386,22 @@ const $leftAccessoryStyle: ViewStyle = {
   height: 40,
   justifyContent: "center",
   alignItems: "center",
+}
+
+// **************************************** Preset Styling ****************************************
+
+const $containerStylesPresets = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryContainerStyles] as StyleProp<ViewStyle>,
+}
+const $inputStylePreset = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryInputStyle] as StyleProp<ViewStyle>,
+}
+const $inputWrapperStylesPreset = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryInputWrapperStyles] as StyleProp<ViewStyle>,
 }
