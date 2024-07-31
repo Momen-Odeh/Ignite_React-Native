@@ -1,10 +1,10 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
-import { RawabiTextFiled } from "./RawabiTextFiled"
 import { FontAwesome } from "@expo/vector-icons"
 import { Platform, Switch, TextStyle, ViewStyle } from "react-native"
+import { TextField, TextFieldProps } from "./TextField"
 
-export interface RawabiResidentialProps {
+export interface RawabiResidentialProps extends TextFieldProps {
   residentialValue: boolean
   SetResidentialValue: (param: boolean) => void
   containerStyle?: ViewStyle
@@ -13,30 +13,28 @@ export interface RawabiResidentialProps {
 export const RawabiResidential = observer(function RawabiResidential({
   residentialValue,
   SetResidentialValue,
-  containerStyle,
+  ...restProps
 }: RawabiResidentialProps) {
-  // const [residentialValue, SetResidentialValue] = React.useState<boolean>(false)
-
   return (
-    <RawabiTextFiled
+    <TextField
+      preset="primary"
       Icon={<FontAwesome name="building-o" />}
-      status="disabled"
+      readOnly
       value="Are you a resident of Rawabi?"
-      containerStyle={containerStyle}
-      RightAccessoryComponent={
+      {...restProps}
+      RightAccessory={() => (
         <Switch
           trackColor={{ false: "#4C565E", true: "#4C565E" }}
           thumbColor={residentialValue ? "#A0CF67" : "#f4f3f4"}
           onValueChange={SetResidentialValue}
           value={residentialValue}
           ios_backgroundColor="#4C565E"
-          style={
-            Platform.OS === "android"
-              ? [{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] }, $SwitchRight]
-              : $SwitchRight
-          }
+          style={[
+            $SwitchRight,
+            Platform.OS === "android" && { transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }] },
+          ]}
         />
-      }
+      )}
     />
   )
 })
@@ -44,17 +42,3 @@ export const RawabiResidential = observer(function RawabiResidential({
 const $SwitchRight: TextStyle = {
   marginRight: 17,
 }
-
-// <Toggle
-//   variant="switch"
-//   value={residentialValue}
-//   onValueChange={SetResidentialValue}
-//   containerStyle={[$IconRight]}
-//   inputOuterStyle={{
-//     backgroundColor: "#4C565E",
-//   }}
-//   inputDetailStyle={{
-//     backgroundColor: "#A0CF67",
-//     // borderRadius: 0,
-//   }}
-// />

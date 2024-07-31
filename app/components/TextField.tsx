@@ -162,6 +162,11 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       disabled && { color: colors.textDim },
       isRTL && { textAlign: "right" as TextStyle["textAlign"] },
       TextInputProps.multiline && { height: "auto" },
+      Platform.OS === "android" && Icon?.props.name === "building-o"
+        ? {
+            marginTop: 12,
+          }
+        : undefined,
       $inputStylePreset[preset],
       $inputStyleOverride,
     ]
@@ -214,11 +219,6 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       ? React.cloneElement(Icon, {
           size: 24,
           color: "#878787",
-          style: [
-            Platform.OS === "android" && Icon.props.name === "building-o"
-              ? { marginBottom: 10 }
-              : undefined,
-          ],
         })
       : undefined
   const [showPassword, setShowPassword] = React.useState<boolean>(!isPassword)
@@ -229,21 +229,11 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     isPassword ? (
       showPassword ? (
         <TouchableOpacity onPress={changePasswordStatus}>
-          <Feather
-            name="eye-off"
-            size={24}
-            color={"#878787"}
-            // style={$IconRight}
-          />
+          <Feather name="eye-off" size={24} color={"#878787"} />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={changePasswordStatus}>
-          <Feather
-            name="eye"
-            size={24}
-            color={"#878787"}
-            // style={$IconRight}
-          />
+          <Feather name="eye" size={24} color={"#878787"} />
         </TouchableOpacity>
       )
     ) : undefined
@@ -285,7 +275,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           ref={input}
           secureTextEntry={secureTextEntry ?? !showPassword}
           underlineColorAndroid={colors.transparent}
-          textAlignVertical="top"
+          textAlignVertical="center"
           placeholder={placeholderContent}
           placeholderTextColor={
             placeholderTextColor ?? (preset === "primary" ? "#C5C5C7" : colors.textDim)

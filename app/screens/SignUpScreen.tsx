@@ -1,20 +1,17 @@
 /* eslint-disable react-native/no-color-literals */
 /* eslint-disable react-native/sort-styles */
-import React, { FC, useRef } from "react"
+import React, { FC, useRef, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { StyleSheet, TextInput, View } from "react-native"
 import { AppStackScreenProps } from "app/navigators"
-import {
-  // RawabiResidential, RawabiTextFiled,
-  Screen,
-} from "app/components"
+import { RawabiResidential, Screen } from "app/components"
 import { Feather, FontAwesome, FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons"
 import { TextField, TextFieldProps } from "../components/TextField"
 
 interface SignUpScreenProps extends AppStackScreenProps<"SignUp"> {}
 
 export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScreen() {
-  // const [residentialValue, setResidentialValue] = useState<boolean>(false)
+  const [residentialValue, setResidentialValue] = useState<boolean>(false)
   const fNameRef = useRef<TextInput>(null)
   const lNameRef = useRef<TextInput>(null)
   const phoneRef = useRef<TextInput>(null)
@@ -99,11 +96,11 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
         ))}
       </View>
 
-      {/* <RawabiResidential
+      <RawabiResidential
         containerStyle={styles.RawabiResidentialContainer}
         residentialValue={residentialValue}
         SetResidentialValue={setResidentialValue}
-      /> */}
+      />
     </Screen>
   )
 })
