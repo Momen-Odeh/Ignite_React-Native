@@ -96,6 +96,14 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
         ))}
       </View>
 
+      <TextField
+        preset="primary"
+        placeholder="Email adress Test"
+        Icon={<MaterialCommunityIcons name="email" />}
+        containerStyle={{ marginTop: 16 }}
+        status="error"
+        helper="Email has already been taken"
+      />
       <RawabiResidential
         containerStyle={styles.RawabiResidentialContainer}
         residentialValue={residentialValue}

@@ -174,33 +174,44 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   function $inputWrapperStyles() {
     return [
       $inputWrapperStyle,
-      status === "error" && { borderColor: colors.error },
+      $inputWrapperStylesPreset[preset],
+      status === "error" && {
+        backgroundColor: "#E648481A",
+        borderColor: "#E6484880",
+        borderWidth: 2,
+      },
       TextInputProps.multiline && { minHeight: 112 },
       LeftAccessory && { paddingStart: 0 },
       RightAccessory && { paddingEnd: 0 },
-      $inputWrapperStylesPreset[preset],
       $inputWrapperStyleOverride,
     ]
   }
   // **************************** End Styles of the Component ****************************
   const $labelStyles = [$labelStyle, LabelTextProps?.style]
 
-  const CustomeHelperTextProps =
-    preset === "primary"
-      ? {
-          ...HelperTextProps,
-          // size: "xs",
-          onPress: () => console.log("Welcome forget password"),
-          style: {
-            color: "#878787",
-          },
-        }
-      : { ...HelperTextProps }
+  const CustomeHelperTextProps = [
+    preset === "primary" && {
+      ...HelperTextProps,
+      size: "xs",
+      onPress: () => console.log("Welcome forget password"),
+      style: {
+        color: "#878787",
+      },
+    },
+    { ...HelperTextProps },
+  ]
 
   const $helperStyles = [
     $helperStyle,
-    status === "error" && { color: colors.error },
-    CustomeHelperTextProps?.style,
+    status === "error" && {
+      // fontFamily: Poppins,
+      color: "#EC5454",
+      fontSize: 12,
+      fontWeight: "300",
+      lineHeight: 24,
+      textAlign: "right",
+    },
+    // CustomeHelperTextProps.style, // ?? { backgroundColor: "blue" },
   ]
 
   /**
