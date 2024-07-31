@@ -1,4 +1,4 @@
-import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from "react"
+import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef, useState } from "react"
 import {
   Platform,
   StyleProp,
@@ -162,6 +162,11 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       disabled && { color: colors.textDim },
       isRTL && { textAlign: "right" as TextStyle["textAlign"] },
       TextInputProps.multiline && { height: "auto" },
+      Platform.OS === "android" && Icon?.props.name === "building-o"
+        ? {
+            marginTop: 12,
+          }
+        : undefined,
       $inputStylePreset[preset],
       $inputStyleOverride,
     ]
@@ -169,33 +174,51 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   function $inputWrapperStyles() {
     return [
       $inputWrapperStyle,
-      status === "error" && { borderColor: colors.error },
+      $inputWrapperStylesPreset[preset],
+      status === "error" && {
+        backgroundColor: "#E648481A",
+        borderColor: "#E6484880",
+        borderWidth: 2,
+      },
+      isFocus && {
+        backgroundColor: "#F3F3F3",
+        borderColor: "#A0CF674D",
+        borderWidth: 2,
+      },
+
       TextInputProps.multiline && { minHeight: 112 },
       LeftAccessory && { paddingStart: 0 },
       RightAccessory && { paddingEnd: 0 },
-      $inputWrapperStylesPreset[preset],
       $inputWrapperStyleOverride,
     ]
   }
   // **************************** End Styles of the Component ****************************
   const $labelStyles = [$labelStyle, LabelTextProps?.style]
 
-  const CustomeHelperTextProps =
-    preset === "primary"
-      ? {
-          ...HelperTextProps,
-          // size: "xs",
-          onPress: () => console.log("Welcome forget password"),
-          style: {
-            color: "#878787",
-          },
-        }
-      : { ...HelperTextProps }
+  const CustomeHelperTextProps = [
+    preset === "primary" && {
+      ...HelperTextProps,
+      size: "xs",
+      onPress: () => console.log("Welcome forget password"),
+      style: {
+        color: "#878787",
+      },
+    },
+    { ...HelperTextProps },
+  ]
 
   const $helperStyles = [
     $helperStyle,
-    status === "error" && { color: colors.error },
-    CustomeHelperTextProps?.style,
+    status === "error" &&
+      ({
+        // fontFamily: Poppins,
+        color: "#EC5454",
+        fontSize: 12,
+        fontWeight: "300",
+        lineHeight: 24,
+        textAlign: "right",
+      } as TextStyle),
+    // { ...CustomeHelperTextProps?.style }, // ?? { backgroundColor: "blue" },
   ]
 
   /**
@@ -214,14 +237,10 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       ? React.cloneElement(Icon, {
           size: 24,
           color: "#878787",
-          style: [
-            Platform.OS === "android" && Icon.props.name === "building-o"
-              ? { marginBottom: 10 }
-              : undefined,
-          ],
         })
       : undefined
   const [showPassword, setShowPassword] = React.useState<boolean>(!isPassword)
+  const [isFocus, setIsFocus] = useState(false)
   function changePasswordStatus() {
     setShowPassword(!showPassword)
   }
@@ -229,21 +248,11 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     isPassword ? (
       showPassword ? (
         <TouchableOpacity onPress={changePasswordStatus}>
-          <Feather
-            name="eye-off"
-            size={24}
-            color={"#878787"}
-            // style={$IconRight}
-          />
+          <Feather name="eye-off" size={24} color={"#878787"} />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={changePasswordStatus}>
-          <Feather
-            name="eye"
-            size={24}
-            color={"#878787"}
-            // style={$IconRight}
-          />
+          <Feather name="eye" size={24} color={"#878787"} />
         </TouchableOpacity>
       )
     ) : undefined
@@ -282,10 +291,13 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         )}
 
         <TextInput
+          /*****************************/
           ref={input}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
           secureTextEntry={secureTextEntry ?? !showPassword}
           underlineColorAndroid={colors.transparent}
-          textAlignVertical="top"
+          textAlignVertical="center"
           placeholder={placeholderContent}
           placeholderTextColor={
             placeholderTextColor ?? (preset === "primary" ? "#C5C5C7" : colors.textDim)
