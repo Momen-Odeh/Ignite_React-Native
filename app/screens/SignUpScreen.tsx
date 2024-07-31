@@ -25,18 +25,18 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
       Icon: <MaterialCommunityIcons name="email" />,
     },
     {
-      placeholder: "Password",
+      placeholder: "Confirm password",
       Icon: <FontAwesome name="lock" />,
       isPassword: true,
     },
     {
-      placeholder: "Confirm password",
+      placeholder: "Password",
       Icon: <FontAwesome name="lock" />,
       isPassword: true,
     },
   ]
   return (
-    <Screen safeAreaEdges={["top"]} style={styles.screen}>
+    <Screen preset={"scroll"} safeAreaEdges={["top"]} style={styles.screen}>
       <View style={styles.namesContainer}>
         <RawabiTextFiled
           placeholder="First name"
@@ -56,7 +56,20 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
           <RawabiTextFiled key={index} {...item} />
         ))}
       </View>
-      <TextField preset="filled" style={{ width: "50%" }} />
+      <TextField
+        preset="primary"
+        placeholder={"Password"}
+        isPassword
+        Icon={<FontAwesome name="lock" />}
+        containerStyle={{ marginTop: 20 }}
+      />
+      <TextField
+        preset="primary"
+        placeholder={"Phone number"}
+        Icon={<FontAwesome name="lock" />}
+        containerStyle={{ marginTop: 20 }}
+      />
+
       <RawabiResidential
         containerStyle={styles.RawabiResidentialContainer}
         residentialValue={residentialValue}

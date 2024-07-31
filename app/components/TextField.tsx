@@ -1,5 +1,6 @@
 import React, { ComponentType, forwardRef, Ref, useImperativeHandle, useRef } from "react"
 import {
+  Platform,
   StyleProp,
   TextInput,
   TextInputProps,
@@ -11,6 +12,7 @@ import {
 import { isRTL, translate } from "../i18n"
 import { colors, spacing, typography } from "../theme"
 import { Text, TextProps } from "./Text"
+import { Feather } from "@expo/vector-icons"
 
 export interface TextFieldAccessoryProps {
   style: StyleProp<any>
@@ -19,7 +21,7 @@ export interface TextFieldAccessoryProps {
   editable: boolean
 }
 
-type Presets = keyof typeof $viewPresets
+type Presets = keyof typeof $containerStylesPresets
 export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
   /**
    * A style modifier for different input states.
@@ -100,6 +102,14 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * One of the different types of button presets.
    */
   preset?: Presets
+  /**
+   * Icon will use in the LeftAccessory
+   */
+  Icon?: JSX.Element
+  /**
+   * Add RightAccessory with Lock to the container
+   */
+  isPassword?: boolean
 }
 
 /**
@@ -117,6 +127,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     placeholderTx,
     placeholder,
     placeholderTxOptions,
+    placeholderTextColor,
     helper,
     helperTx,
     helperTxOptions,
@@ -128,52 +139,63 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     style: $inputStyleOverride,
     containerStyle: $containerStyleOverride,
     inputWrapperStyle: $inputWrapperStyleOverride,
+    Icon,
+    isPassword,
+    secureTextEntry,
     ...TextInputProps
   } = props
   const input = useRef<TextInput>(null)
   const preset: Presets = props.preset ?? "default"
-  function $containerStyles(): StyleProp<ViewStyle> {
-    return [$viewPresets[preset], $containerStyleOverride]
-  }
-
-  // function $Styles(): StyleProp<ViewStyle> {
-  //   return [$stylePreset[preset], $inputStyleOverride]
-  // }
-
   const disabled = TextInputProps.editable === false || status === "disabled"
 
   const placeholderContent = placeholderTx
     ? translate(placeholderTx, placeholderTxOptions)
     : placeholder
 
-  // const $containerStyles = [$containerStyleOverride]
-
-  const $labelStyles = [$labelStyle, LabelTextProps?.style]
-
-  const $inputWrapperStyles = [
-    $inputWrapperStyle,
-    status === "error" && { borderColor: colors.error },
-    TextInputProps.multiline && { minHeight: 112 },
-    LeftAccessory && { paddingStart: 0 },
-    RightAccessory && { paddingEnd: 0 },
-    $inputWrapperStyleOverride,
-  ]
-
+  // **************************** Styles of the Component using the preset ****************************
+  function $containerStyles(): StyleProp<ViewStyle> {
+    return [$containerStylesPresets[preset], $containerStyleOverride]
+  }
   function $inputStyles(): StyleProp<TextStyle> {
     return [
-      $stylePreset[preset],
       $inputStyle,
       disabled && { color: colors.textDim },
       isRTL && { textAlign: "right" as TextStyle["textAlign"] },
       TextInputProps.multiline && { height: "auto" },
+      $inputStylePreset[preset],
       $inputStyleOverride,
     ]
   }
+  function $inputWrapperStyles() {
+    return [
+      $inputWrapperStyle,
+      status === "error" && { borderColor: colors.error },
+      TextInputProps.multiline && { minHeight: 112 },
+      LeftAccessory && { paddingStart: 0 },
+      RightAccessory && { paddingEnd: 0 },
+      $inputWrapperStylesPreset[preset],
+      $inputWrapperStyleOverride,
+    ]
+  }
+  // **************************** End Styles of the Component ****************************
+  const $labelStyles = [$labelStyle, LabelTextProps?.style]
+
+  const CustomeHelperTextProps =
+    preset === "primary"
+      ? {
+          ...HelperTextProps,
+          // size: "xs",
+          onPress: () => console.log("Welcome forget password"),
+          style: {
+            color: "#878787",
+          },
+        }
+      : { ...HelperTextProps }
 
   const $helperStyles = [
     $helperStyle,
     status === "error" && { color: colors.error },
-    HelperTextProps?.style,
+    CustomeHelperTextProps?.style,
   ]
 
   /**
@@ -186,7 +208,47 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   }
 
   useImperativeHandle(ref, () => input.current as TextInput)
+  // created by Momen Odeh
+  const IconComponent = () =>
+    preset === "primary" && Icon
+      ? React.cloneElement(Icon, {
+          size: 24,
+          color: "#878787",
+          style: [
+            Platform.OS === "android" && Icon.props.name === "building-o"
+              ? { marginBottom: 10 }
+              : undefined,
+          ],
+        })
+      : undefined
+  const [showPassword, setShowPassword] = React.useState<boolean>(!isPassword)
+  function changePasswordStatus() {
+    setShowPassword(!showPassword)
+  }
+  const PasswordIcon = () =>
+    isPassword ? (
+      showPassword ? (
+        <TouchableOpacity onPress={changePasswordStatus}>
+          <Feather
+            name="eye-off"
+            size={24}
+            color={"#878787"}
+            // style={$IconRight}
+          />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={changePasswordStatus}>
+          <Feather
+            name="eye"
+            size={24}
+            color={"#878787"}
+            // style={$IconRight}
+          />
+        </TouchableOpacity>
+      )
+    ) : undefined
 
+  //
   return (
     <TouchableOpacity
       activeOpacity={1}
@@ -205,34 +267,45 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         />
       )}
 
-      <View style={$inputWrapperStyles}>
-        {!!LeftAccessory && (
-          <LeftAccessory
-            style={$leftAccessoryStyle}
-            status={status}
-            editable={!disabled}
-            multiline={TextInputProps.multiline ?? false}
-          />
+      <View style={$inputWrapperStyles()}>
+        {preset === "primary" && Icon !== undefined ? (
+          <IconComponent />
+        ) : (
+          !!LeftAccessory && (
+            <LeftAccessory
+              style={$leftAccessoryStyle}
+              status={status}
+              editable={!disabled}
+              multiline={TextInputProps.multiline ?? false}
+            />
+          )
         )}
 
         <TextInput
           ref={input}
+          secureTextEntry={secureTextEntry ?? !showPassword}
           underlineColorAndroid={colors.transparent}
           textAlignVertical="top"
           placeholder={placeholderContent}
-          placeholderTextColor={colors.textDim}
+          placeholderTextColor={
+            placeholderTextColor ?? (preset === "primary" ? "#C5C5C7" : colors.textDim)
+          }
           {...TextInputProps}
           editable={!disabled}
           style={$inputStyles()}
         />
 
-        {!!RightAccessory && (
-          <RightAccessory
-            style={$rightAccessoryStyle}
-            status={status}
-            editable={!disabled}
-            multiline={TextInputProps.multiline ?? false}
-          />
+        {isPassword && preset === "primary" ? (
+          <PasswordIcon />
+        ) : (
+          !!RightAccessory && (
+            <RightAccessory
+              style={$rightAccessoryStyle}
+              status={status}
+              editable={!disabled}
+              multiline={TextInputProps.multiline ?? false}
+            />
+          )
         )}
       </View>
 
@@ -242,7 +315,8 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
           text={helper}
           tx={helperTx}
           txOptions={helperTxOptions}
-          {...HelperTextProps}
+          {...CustomeHelperTextProps}
+          // {...HelperTextProps}
           style={$helperStyles}
         />
       )}
@@ -250,23 +324,25 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   )
 })
 
-const $basic: ViewStyle = {
-  backgroundColor: "red",
+// **************************************** Styling ****************************************
+const $primaryContainerStyles: ViewStyle = {}
+const $primaryInputStyle: TextStyle = {
+  color: "#4C575D",
+  // fontFamily:"Poppins"
+  fontWeight: "400",
+  fontSize: 14,
+  lineHeight: 21,
+  marginLeft: 20,
 }
-const $filled: ViewStyle = {
-  backgroundColor: "blue",
+const $primaryInputWrapperStyles: ViewStyle = {
+  paddingVertical: 15,
+  paddingHorizontal: 20,
+  alignItems: "center",
+  backgroundColor: "#fff",
+  borderColor: "#fff",
+  borderRadius: 10,
 }
 
-const $viewPresets = {
-  default: [$basic] as StyleProp<ViewStyle>,
-  filled: [$filled] as StyleProp<ViewStyle>,
-  primary: [] as StyleProp<ViewStyle>,
-}
-const $stylePreset = {
-  default: [$basic] as StyleProp<ViewStyle>,
-  filled: [$filled] as StyleProp<ViewStyle>,
-  primary: [] as StyleProp<ViewStyle>,
-}
 const $labelStyle: TextStyle = {
   marginBottom: spacing.xs,
 }
@@ -310,4 +386,22 @@ const $leftAccessoryStyle: ViewStyle = {
   height: 40,
   justifyContent: "center",
   alignItems: "center",
+}
+
+// **************************************** Preset Styling ****************************************
+
+const $containerStylesPresets = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryContainerStyles] as StyleProp<ViewStyle>,
+}
+const $inputStylePreset = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryInputStyle] as StyleProp<ViewStyle>,
+}
+const $inputWrapperStylesPreset = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryInputWrapperStyles] as StyleProp<ViewStyle>,
 }
