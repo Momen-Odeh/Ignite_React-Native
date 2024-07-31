@@ -1,41 +1,69 @@
 /* eslint-disable react-native/no-color-literals */
 /* eslint-disable react-native/sort-styles */
-import React, { FC } from "react"
+import React, { FC, useRef } from "react"
 import { observer } from "mobx-react-lite"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, TextInput, View } from "react-native"
 import { AppStackScreenProps } from "app/navigators"
 import {
   // RawabiResidential, RawabiTextFiled,
   Screen,
 } from "app/components"
 import { Feather, FontAwesome, FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons"
-import { TextField } from "../components/TextField"
+import { TextField, TextFieldProps } from "../components/TextField"
 
 interface SignUpScreenProps extends AppStackScreenProps<"SignUp"> {}
 
 export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScreen() {
   // const [residentialValue, setResidentialValue] = useState<boolean>(false)
-  // const fNameRef = useRef<TextInput>(null)
-  // const lNameRef = useRef<TextInput>(null)
+  const fNameRef = useRef<TextInput>(null)
+  const lNameRef = useRef<TextInput>(null)
+  const phoneRef = useRef<TextInput>(null)
+  const emailRef = useRef<TextInput>(null)
+  const passwordRef = useRef<TextInput>(null)
+  const confirmPasswordRef = useRef<TextInput>(null)
 
-  const signUpFormDetails = [
+  const signUpFormDetails: (TextFieldProps & { ref?: React.RefObject<TextInput> })[] = [
     {
       placeholder: "Phone number",
       Icon: <Feather name="smartphone" />,
+      ref: phoneRef,
+      returnKeyType: "next",
+      onSubmitEditing: () => {
+        emailRef.current?.focus()
+      },
+      blurOnSubmit: false,
     },
     {
       placeholder: "Email address",
       Icon: <MaterialCommunityIcons name="email" />,
-    },
-    {
-      placeholder: "Confirm password",
-      Icon: <FontAwesome name="lock" />,
-      isPassword: true,
+      ref: emailRef,
+      returnKeyType: "next",
+      onSubmitEditing: () => {
+        passwordRef.current?.focus()
+      },
+      blurOnSubmit: false,
     },
     {
       placeholder: "Password",
       Icon: <FontAwesome name="lock" />,
       isPassword: true,
+      ref: passwordRef,
+      returnKeyType: "next",
+      onSubmitEditing: () => {
+        confirmPasswordRef.current?.focus()
+      },
+      blurOnSubmit: false,
+    },
+    {
+      placeholder: "Confirm password",
+      Icon: <FontAwesome name="lock" />,
+      isPassword: true,
+      ref: confirmPasswordRef,
+      returnKeyType: "done",
+      onSubmitEditing: () => {
+        // make SignUp
+      },
+      // blurOnSubmit: false,
     },
   ]
   return (
@@ -46,14 +74,23 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
           placeholder="First name"
           Icon={<FontAwesome6 name="user" />}
           containerStyle={styles.NameTextFiledItem}
-          // returnKeyType="next"
-          // ref={fNameRef}
+          ref={fNameRef}
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            lNameRef.current?.focus()
+          }}
+          blurOnSubmit={false}
         />
         <TextField
           preset="primary"
           placeholder="Last name"
           containerStyle={styles.NameTextFiledItem}
-          // ref={lNameRef}
+          ref={lNameRef}
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            phoneRef.current?.focus()
+          }}
+          blurOnSubmit={false}
         />
       </View>
       <View style={styles.signUpForm}>
