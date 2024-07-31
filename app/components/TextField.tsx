@@ -209,15 +209,16 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const $helperStyles = [
     $helperStyle,
-    status === "error" && {
-      // fontFamily: Poppins,
-      color: "#EC5454",
-      fontSize: 12,
-      fontWeight: "300",
-      lineHeight: 24,
-      textAlign: "right",
-    },
-    // CustomeHelperTextProps.style, // ?? { backgroundColor: "blue" },
+    status === "error" &&
+      ({
+        // fontFamily: Poppins,
+        color: "#EC5454",
+        fontSize: 12,
+        fontWeight: "300",
+        lineHeight: 24,
+        textAlign: "right",
+      } as TextStyle),
+    // { ...CustomeHelperTextProps?.style }, // ?? { backgroundColor: "blue" },
   ]
 
   /**

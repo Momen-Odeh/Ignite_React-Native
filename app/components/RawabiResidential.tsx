@@ -24,8 +24,8 @@ export const RawabiResidential = observer(function RawabiResidential({
       {...restProps}
       RightAccessory={() => (
         <Switch
-          trackColor={{ false: "#4C565E", true: "#4C565E" }}
-          thumbColor={residentialValue ? "#A0CF67" : "#f4f3f4"}
+          trackColor={{ false: "#9B9B9B", true: "#4C575D" }}
+          thumbColor={residentialValue ? "#A0CF67" : "#ffffff"}
           onValueChange={SetResidentialValue}
           value={residentialValue}
           ios_backgroundColor="#4C565E"
