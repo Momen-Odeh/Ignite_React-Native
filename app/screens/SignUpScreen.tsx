@@ -56,7 +56,12 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
           <RawabiTextFiled key={index} {...item} />
         ))}
       </View>
-      <TextField preset="filled" style={{ width: "50%" }} />
+      <TextField
+        preset="primary"
+        placeholder={"Phone number"}
+        Icon={<Feather name="smartphone" />}
+        containerStyle={{ marginTop: 20 }}
+      />
       <RawabiResidential
         containerStyle={styles.RawabiResidentialContainer}
         residentialValue={residentialValue}

@@ -19,7 +19,7 @@ export interface TextFieldAccessoryProps {
   editable: boolean
 }
 
-type Presets = keyof typeof $viewPresets
+type Presets = keyof typeof $containerStylesPresets
 export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
   /**
    * A style modifier for different input states.
@@ -100,6 +100,10 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * One of the different types of button presets.
    */
   preset?: Presets
+  /**
+   * Icon will use in the LeftAccessory
+   */
+  Icon?: JSX.Element
 }
 
 /**
@@ -132,13 +136,6 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   } = props
   const input = useRef<TextInput>(null)
   const preset: Presets = props.preset ?? "default"
-  function $containerStyles(): StyleProp<ViewStyle> {
-    return [$viewPresets[preset], $containerStyleOverride]
-  }
-
-  // function $Styles(): StyleProp<ViewStyle> {
-  //   return [$stylePreset[preset], $inputStyleOverride]
-  // }
 
   const disabled = TextInputProps.editable === false || status === "disabled"
 
@@ -146,27 +143,30 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     ? translate(placeholderTx, placeholderTxOptions)
     : placeholder
 
-  // const $containerStyles = [$containerStyleOverride]
-
   const $labelStyles = [$labelStyle, LabelTextProps?.style]
 
-  const $inputWrapperStyles = [
-    $inputWrapperStyle,
-    status === "error" && { borderColor: colors.error },
-    TextInputProps.multiline && { minHeight: 112 },
-    LeftAccessory && { paddingStart: 0 },
-    RightAccessory && { paddingEnd: 0 },
-    $inputWrapperStyleOverride,
-  ]
-
+  function $containerStyles(): StyleProp<ViewStyle> {
+    return [$containerStylesPresets[preset], $containerStyleOverride]
+  }
   function $inputStyles(): StyleProp<TextStyle> {
     return [
-      $stylePreset[preset],
       $inputStyle,
       disabled && { color: colors.textDim },
       isRTL && { textAlign: "right" as TextStyle["textAlign"] },
       TextInputProps.multiline && { height: "auto" },
+      $inputStylePreset[preset],
       $inputStyleOverride,
+    ]
+  }
+  function $inputWrapperStyles() {
+    return [
+      $inputWrapperStyle,
+      status === "error" && { borderColor: colors.error },
+      TextInputProps.multiline && { minHeight: 112 },
+      LeftAccessory && { paddingStart: 0 },
+      RightAccessory && { paddingEnd: 0 },
+      $inputWrapperStylesPreset[preset],
+      $inputWrapperStyleOverride,
     ]
   }
 
@@ -205,7 +205,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         />
       )}
 
-      <View style={$inputWrapperStyles}>
+      <View style={$inputWrapperStyles()}>
         {!!LeftAccessory && (
           <LeftAccessory
             style={$leftAccessoryStyle}
@@ -250,22 +250,43 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
   )
 })
 
-const $basic: ViewStyle = {
-  backgroundColor: "red",
+const $primaryContainerStyles: ViewStyle = {
+  // backgroundColor: "red",
 }
-const $filled: ViewStyle = {
-  backgroundColor: "blue",
+const $primaryInputStyle: TextStyle = {
+  color: "#4C575D",
+  // fontFamily:"Poppins"
+  fontWeight: "400",
+  fontSize: 14,
+  lineHeight: 21,
+  marginLeft: 20,
+  // backgroundColor: "red",
+}
+const $primaryInputWrapperStyles: ViewStyle = {
+  paddingVertical: 15,
+  paddingHorizontal: 20,
+  alignItems: "center",
+  backgroundColor: "#fff",
+  borderColor: "#fff",
+  borderRadius: 10,
+  // justifyContent: "center",
+  // backgroundColor: "blue",
 }
 
-const $viewPresets = {
-  default: [$basic] as StyleProp<ViewStyle>,
-  filled: [$filled] as StyleProp<ViewStyle>,
-  primary: [] as StyleProp<ViewStyle>,
+const $containerStylesPresets = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryContainerStyles] as StyleProp<ViewStyle>,
 }
-const $stylePreset = {
-  default: [$basic] as StyleProp<ViewStyle>,
-  filled: [$filled] as StyleProp<ViewStyle>,
-  primary: [] as StyleProp<ViewStyle>,
+const $inputStylePreset = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryInputStyle] as StyleProp<ViewStyle>,
+}
+const $inputWrapperStylesPreset = {
+  default: [] as StyleProp<ViewStyle>,
+  filled: [] as StyleProp<ViewStyle>,
+  primary: [$primaryInputWrapperStyles] as StyleProp<ViewStyle>,
 }
 const $labelStyle: TextStyle = {
   marginBottom: spacing.xs,

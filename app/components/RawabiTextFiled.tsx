@@ -77,7 +77,7 @@ export const RawabiTextFiled = observer(function RawabiTextFiled({
   }
   return (
     <TextField
-      preset="filled"
+      preset="default"
       style={$innerContainer}
       value={value}
       ref={ref}
