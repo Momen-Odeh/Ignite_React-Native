@@ -36,7 +36,7 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
     },
   ]
   return (
-    <Screen safeAreaEdges={["top"]} style={styles.screen}>
+    <Screen preset={"scroll"} safeAreaEdges={["top"]} style={styles.screen}>
       <View style={styles.namesContainer}>
         <RawabiTextFiled
           placeholder="First name"
@@ -59,7 +59,14 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
       <TextField
         preset="primary"
         placeholder={"Phone number"}
-        Icon={<Feather name="smartphone" />}
+        Icon={<FontAwesome name="lock" />}
+        containerStyle={{ marginTop: 20 }}
+      />
+      <TextField
+        preset="primary"
+        placeholder={"Phone number"}
+        isPassword
+        Icon={<FontAwesome name="lock" />}
         containerStyle={{ marginTop: 20 }}
       />
       <RawabiResidential
