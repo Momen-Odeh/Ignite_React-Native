@@ -1,17 +1,20 @@
 /* eslint-disable react-native/no-color-literals */
 /* eslint-disable react-native/sort-styles */
-import React, { FC, useRef, useState } from "react"
+import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { StyleSheet, TextInput, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { AppStackScreenProps } from "app/navigators"
-import { RawabiResidential, RawabiTextFiled, Screen } from "app/components"
+import {
+  // RawabiResidential, RawabiTextFiled,
+  Screen,
+} from "app/components"
 import { Feather, FontAwesome, FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons"
 import { TextField } from "../components/TextField"
 
 interface SignUpScreenProps extends AppStackScreenProps<"SignUp"> {}
 
 export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScreen() {
-  const [residentialValue, setResidentialValue] = useState<boolean>(false)
+  // const [residentialValue, setResidentialValue] = useState<boolean>(false)
   // const fNameRef = useRef<TextInput>(null)
   // const lNameRef = useRef<TextInput>(null)
 
@@ -38,14 +41,16 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
   return (
     <Screen preset={"scroll"} safeAreaEdges={["top"]} style={styles.screen}>
       <View style={styles.namesContainer}>
-        <RawabiTextFiled
+        <TextField
+          preset="primary"
           placeholder="First name"
           Icon={<FontAwesome6 name="user" />}
           containerStyle={styles.NameTextFiledItem}
-          returnKeyType="next"
+          // returnKeyType="next"
           // ref={fNameRef}
         />
-        <RawabiTextFiled
+        <TextField
+          preset="primary"
           placeholder="Last name"
           containerStyle={styles.NameTextFiledItem}
           // ref={lNameRef}
@@ -53,28 +58,15 @@ export const SignUpScreen: FC<SignUpScreenProps> = observer(function SignUpScree
       </View>
       <View style={styles.signUpForm}>
         {signUpFormDetails.map((item, index) => (
-          <RawabiTextFiled key={index} {...item} />
+          <TextField preset="primary" key={index} {...item} />
         ))}
       </View>
-      <TextField
-        preset="primary"
-        placeholder={"Password"}
-        isPassword
-        Icon={<FontAwesome name="lock" />}
-        containerStyle={{ marginTop: 20 }}
-      />
-      <TextField
-        preset="primary"
-        placeholder={"Phone number"}
-        Icon={<FontAwesome name="lock" />}
-        containerStyle={{ marginTop: 20 }}
-      />
 
-      <RawabiResidential
+      {/* <RawabiResidential
         containerStyle={styles.RawabiResidentialContainer}
         residentialValue={residentialValue}
         SetResidentialValue={setResidentialValue}
-      />
+      /> */}
     </Screen>
   )
 })
